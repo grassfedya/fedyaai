@@ -32,4 +32,21 @@ I know it is tempting to ask your favorite LLM "Hey what can I make look better 
 
 If you have a subscription and some extra usage there is no reason you shouldn't spend some time guiding your agent to create a truly beautiful UI. It is not that hard, it just takes time, some creativity, and knowing what you want. If you want to make a background with 400 different svgs on your portfolio site you can! You want a liquid glass nav bar? That will be 20k tokens please!. How about an interactive website experience that lets each visitor change the layout of the site for them? You can have it done in a couple sessions! Because it is no longer you doing it, it is the agent implementing the changes you want the ceiling of creation is whatever you say it is. I am a little upset that I did not learn how to be a designer earlier in my career because now is the time for designers to shine--especially those with taste. (Notice the double hyphen rather than the em dash which has now been put on a no fly list due to AI abuse). 
 
-I mentioned the `/frontend-design` skill but I wanted to reiterate that this is a starting point, not the finish line. These ai skills created by people have the peoples opinions baked into them. A designers preferred `/design` command might be different from mine so I recommend that everyone reading this makes their own skill rather than pulling one off of X or the skills marketplace and plugging it in and expecting it to make designs perfectly how you want them. I try to deopinionate my skills that I use and I try to focus on the negative space rather than the postive (what not to do rather than what to do). For example my 
+I mentioned the `/frontend-design` skill but I wanted to reiterate that this is a starting point, not the finish line. These ai skills created by people have the peoples opinions baked into them. A designers preferred `/design` command might be different from mine so I recommend that everyone reading this makes their own skill rather than pulling one off of X or the skills marketplace and plugging it in and expecting it to make designs perfectly how you want them. I try to deopinionate my skills that I use and I try to focus on the negative space rather than the postive (what not to do rather than what to do). My [slop-tells](https://github.com/grassfedya/skills/blob/main/skills/slop-tells/SKILL.md) skill is an example of this if you would like to get some creative juices flowing. 
+
+You don't need to let a lack of design knowledge hold you back. If you want something on your site you can go to gemini, generate an image of what you were thinking about, then have an agent iterate on it until it matches the original. The bear on my site originally looked like this: 
+
+![A blob of a bear smoking what seems to be a pipe](/images/image-1.png)
+
+But after a couple iterations of draw, compare, review, draw, I ended up with this: 
+
+![A wizard smoking a pipe riding on a familiar bear](/images/image-2.png)
+
+Pretty solid right? If you can think of it you can make it. And it is cheaper and easier to do so than ever. So please please please if you have ideas that you think would be cool to add to a project you are working on just do it! Don't say you are running up against the limits of AI's talent because I promise you you are not. Obviously claude didnt cook up that bear and wizard pair in one go with one prompt saying "do it no mistakes." No, it was at least 6-7 iterations before I had something worth putting out there but I'd say that is a solid deal for something that would've probably taken me a week to do in figma on my own. 
+
+
+
+So go out there. Get creative, explore and see what is possible. Spice up your landing page, make your login as ostentatious as possible, make the navbar the most liquid liquid glass of all time. You might end up with a gem. 
+
+![image.png](/images/image-3.png)
+
