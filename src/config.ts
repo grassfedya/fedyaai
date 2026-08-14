@@ -18,7 +18,7 @@ export const SITE = {
   // Profiles you control. Used for JSON-LD sameAs (entity linking) and the footer.
   // TODO: verify/replace handles
   profiles: {
-    github: 'https://github.com/muzykafs',
+    github: 'https://github.com/grassfedya',
     linkedin: 'https://www.linkedin.com/in/fedyamuzyka',
     x: 'https://x.com/fedyamuzyka',
   },

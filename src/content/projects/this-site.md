@@ -2,7 +2,7 @@
 title: fedya.ai
 description: 'This site — a zero-JavaScript Astro build with a machine-readable identity layer, served from Cloudflare''s edge.'
 year: 2026
-repo: https://github.com/muzykafs/fedyaai
+repo: https://github.com/grassfedya/fedyaai
 order: 2
 ---
 
