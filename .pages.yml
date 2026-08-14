@@ -1,0 +1,70 @@
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: blog
+    label: Blog posts
+    type: collection
+    path: src/content/blog
+    filename: '{fields.title}.md'
+    view:
+      fields: [title, date, draft]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+        description: One or two sentences. Becomes the meta description and the RSS summary.
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: updated
+        label: Updated
+        type: date
+      - name: draft
+        label: Draft
+        type: boolean
+        description: Drafts are hidden from the site and the RSS feed.
+      - name: body
+        label: Body
+        type: rich-text
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    filename: '{fields.title}.md'
+    view:
+      fields: [title, year]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: year
+        label: Year
+        type: number
+        required: true
+      - name: url
+        label: Live URL
+        type: string
+      - name: repo
+        label: Repo URL
+        type: string
+      - name: order
+        label: Sort order
+        type: number
+        description: Lower shows first. Defaults to 99 if left empty.
+      - name: body
+        label: Body
+        type: rich-text
