@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { SITE } from '../../config';
+import '../../styles/prose.css';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -34,19 +35,22 @@ const articleLd = {
   type="article"
   jsonLd={[articleLd]}
 >
-  <article>
-    <h1>{post.data.title}</h1>
-    <p>
-      <time datetime={iso(post.data.date)}>{fmt(post.data.date)}</time>
-      {
-        post.data.updated && (
-          <>
-            {' '}
-            · Updated <time datetime={iso(post.data.updated)}>{fmt(post.data.updated)}</time>
-          </>
-        )
-      }
-    </p>
+  <article class="prose">
+    <header class="prose__header">
+      <a class="hud prose__back" href="/blog">← Writing</a>
+      <h1>{post.data.title}</h1>
+      <p class="hud prose__meta">
+        <time datetime={iso(post.data.date)}>{fmt(post.data.date)}</time>
+        {
+          post.data.updated && (
+            <>
+              {' '}
+              · Updated <time datetime={iso(post.data.updated)}>{fmt(post.data.updated)}</time>
+            </>
+          )
+        }
+      </p>
+    </header>
     <Content />
   </article>
 </Base>

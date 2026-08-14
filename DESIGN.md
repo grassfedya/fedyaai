@@ -98,6 +98,17 @@ purpose. Do not reintroduce grit; this world has atmosphere, not static.
 Jost is loaded at 300/400/500 only; `--fw-semibold` and `--fw-bold` deliberately resolve
 to 500.
 
+### Long-form prose (blog posts)
+
+`src/styles/prose.css`, imported by the post template only. The tracked-caps h1 in
+`global.css` is for two-word page titles ("BLOG", "WORK"); article titles are sentence-case
+Jost light at `--fs-h2` because real titles run long and wrap. The reading column is
+`max-width: var(--measure)` centered on itself, not on `--container-narrow`, so the text
+column is the thing that sits centered on the page. Rhythm comes from a flex column gap
+(`--space-4`) with extra `margin-top` on h2–h4; markdown images get a hairline border and
+`--radius-md`; blockquotes take a 1px `--border-accent` left rule. The date line and the
+"← Writing" back link are the existing `.hud` micro-type, not new styles.
+
 ## Motion budget
 
 Slow and scarce. The budget on any page:
@@ -126,6 +137,7 @@ count-ups. `prefers-reduced-motion` zeroes all of it.
 - `src/styles/tokens/semantic.css` — the only tokens components may use
 - `src/styles/tokens/typography.css`, `fonts.css` — type scale and webfonts
 - `src/styles/tokens/texture.css`, `elevation.css`, `motion.css`, `spacing.css`, `base.css`
+- `src/styles/prose.css` — long-form article typography, imported by `src/pages/blog/[slug].astro`
 - `src/components/Skyfield.astro` — the landscape: the peak and its snow, foothills, ridges, sun, birds, stars, pines, the overlook spruces and canopy, parallax
 - `src/assets/wizard.svg` — the wizard illustration, inlined into Skyfield at build; paints in `--r6`/`--sun` with fallbacks (the figure is remapped to `--fg-deep` on the way in)
 - `src/layouts/Base.astro` — pre-paint `data-time` stamp, nav, footer

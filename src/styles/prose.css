@@ -1,0 +1,89 @@
+/* Long-form article typography — imported by the blog post template only.
+   Markdown output gets its rhythm here; the page chrome in global.css stays built for
+   short pages. Semantic tokens only (see DESIGN.md). */
+
+/* The reading column centers on the measure itself, so the text column is what sits
+   centered on the page, not a wider container it hugs the left edge of. */
+.prose {
+  max-width: var(--measure);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.prose__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+/* Article titles are sentence-case Jost light. The tracked-caps h1 treatment in
+   global.css belongs to two-word page titles; nine-word titles wrap badly in it. */
+.site-main .prose h1 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-display);
+  text-transform: none;
+}
+
+.prose__meta {
+  color: var(--text-faint);
+}
+
+.prose__back {
+  align-self: flex-start;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.prose__back:hover {
+  color: var(--text-primary);
+}
+
+/* Rhythm: the column gap handles siblings; headings carry extra space above so
+   sections breathe (gap + margin, not stacked margins). */
+.prose :is(h2, h3, h4) {
+  margin-top: var(--space-8);
+}
+.site-main .prose h2 {
+  margin-top: var(--space-8);
+}
+.site-main .prose p + p {
+  margin-top: 0;
+}
+
+.prose li + li {
+  margin-top: var(--space-2);
+}
+.prose ul,
+.prose ol {
+  margin: 0;
+  padding-left: var(--space-6);
+}
+
+.prose img {
+  margin-inline: auto;
+  border: var(--border-w) solid var(--border-hairline);
+  border-radius: var(--radius-md);
+}
+
+.prose blockquote {
+  margin: 0;
+  padding-left: var(--space-5);
+  border-left: var(--border-w) solid var(--border-accent);
+  color: var(--text-muted);
+}
+
+.prose pre {
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  border: var(--border-w) solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+.prose :not(pre) > code {
+  padding: 1px var(--space-1);
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}

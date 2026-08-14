@@ -8,7 +8,7 @@ date: 2026-08-14
 updated: 2026-08-14
 draft: false
 ---
-In the age where ai tools can build just about anything you can imagine, the last bottleneck for businesses is ironically the first one: *creativity. *****Humans have always been able to achieve any goal they set their mind to. We harnessed fire, water, and the wind. And somehow we got to using tiny things we cant see that we break apart to release an insane amount of energy which (depending on your local grid) powers the device that you are reading or listening on right now. Tell a person 100 years ago that everyone would have all the knowledge in the world in the palm of their hands they would call you a crazy person. 400 years ago they would burn you at the stake. And 3000 years ago they'd say: "𓅓𓂋𓏏𓏭𓏏𓏤𓏥". What these examples all have in common is that they thought it impossible, but here we are. 
+In the age where ai tools can build just about anything you can imagine, the last bottleneck for businesses is ironically the first one: *creativity*. Humans have always been able to achieve any goal they set their mind to. We harnessed fire, water, and the wind. And somehow we got to using tiny things we cant see that we break apart to release an insane amount of energy which (depending on your local grid) powers the device that you are reading or listening on right now. Tell a person 100 years ago that everyone would have all the knowledge in the world in the palm of their hands they would call you a crazy person. 400 years ago they would burn you at the stake. And 3000 years ago they'd say: "𓅓𓂋𓏏𓏭𓏏𓏤𓏥". What these examples all have in common is that they thought it impossible, but here we are. 
 
 
 
