@@ -16,4 +16,4 @@ All pages are static, semantic HTML — no JavaScript required to read them.
 ## Contact
 
 - Email: fed@inpactive.com
-- GitHub: https://github.com/muzykafs
+- GitHub: https://github.com/grassfedya
