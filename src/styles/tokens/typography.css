@@ -1,0 +1,34 @@
+:root{
+/* --font-sans keeps its name for component compat, but the body face is now a serif. */
+--font-display:"Jost",system-ui,sans-serif;
+--font-sans:"Spectral",Georgia,serif;
+--font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+/* Sizes. HUD/label sizes are Jost 500 + uppercase + tracked; display sizes are Jost 300. */
+--fs-hud:11px;--fs-hud-lg:13px;--fs-label:13px;--fs-caption:14px;
+--fs-body-sm:15px;--fs-body:17px;--fs-body-lg:19px;
+--fs-h4:22px;--fs-h3:28px;--fs-h2:38px;--fs-h1:52px;--fs-display:72px;--fs-mega:104px;
+--lh-flat:1;
+--lh-tight:1.02;
+--lh-snug:1.18;
+--lh-normal:1.4;
+--lh-body:1.62;
+--lh-loose:1.75;
+/* Wide positive tracking everywhere caps appear — light weight carries it. */
+--ls-hud:0.22em;
+--ls-label:0.06em;
+--ls-tight:0;
+--ls-display:0.04em;
+--ls-caps:0.16em;
+--ls-normal:0;
+--fw-light:300;
+--fw-regular:400;
+--fw-medium:500;
+--fw-semibold:500; /* Jost has no 600 loaded; semibold intentionally resolves to 500 */
+--fw-bold:500;
+/* Composite type roles */
+--type-hud:var(--fw-medium) var(--fs-hud)/var(--lh-flat) var(--font-display);
+--type-label:var(--fw-medium) var(--fs-label)/var(--lh-normal) var(--font-display);
+--type-body:var(--fw-regular) var(--fs-body)/var(--lh-body) var(--font-sans);
+--type-h1:var(--fw-light) var(--fs-h1)/var(--lh-tight) var(--font-display);
+--type-display:var(--fw-light) var(--fs-display)/var(--lh-tight) var(--font-display);
+}

@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+
+<Base title={`Contact — ${SITE.name}`} description={`How to reach ${SITE.name}.`}>
+  <h1>Contact</h1>
+  <p>The best way to reach me is email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  <ul>
+    <li><a href={SITE.profiles.github}>GitHub</a></li>
+    <li><a href={SITE.profiles.linkedin}>LinkedIn</a></li>
+    <li><a href={SITE.profiles.x}>X</a></li>
+  </ul>
+</Base>

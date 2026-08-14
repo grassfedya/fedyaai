@@ -1,0 +1,24 @@
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg-page);color:var(--text-primary);font:var(--type-body);
+-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+transition:background-color var(--t-sky)}
+/* Display headings are Jost light, tracked open — the tracked-out register carries the
+   brand, so weight stays low even at small sizes. */
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:var(--fw-light);letter-spacing:var(--ls-display);line-height:var(--lh-tight);color:var(--text-primary)}
+h1{font-size:var(--fs-h1)}h2{font-size:var(--fs-h2)}h3{font-size:var(--fs-h3);line-height:var(--lh-snug);font-weight:var(--fw-regular)}
+h4{font-size:var(--fs-h4);font-weight:var(--fw-medium);letter-spacing:var(--ls-tight)}
+p{margin:0;text-wrap:pretty}
+a{color:var(--text-link);text-decoration-line:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:var(--accent-dim);transition:color var(--t-hover),text-decoration-color var(--t-hover)}
+a:hover{color:var(--text-link-hover);text-decoration-color:currentColor}
+a:active{color:var(--accent-press)}
+code,kbd,pre,samp{font-family:var(--font-mono);font-size:.92em}
+hr{height:var(--rule-w);border:0;background:var(--border-hairline);margin:var(--space-8) 0}
+::selection{background:var(--selection-bg);color:var(--selection-fg)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+img,svg,video{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+/* HUD label: the workhorse micro-type of the brand — Jost 500, wide-tracked caps. */
+.hud{font:var(--type-hud);letter-spacing:var(--ls-hud);text-transform:uppercase;color:var(--text-muted)}
+/* Section head: display font, uppercase, wider tracking */
+.caps{font-family:var(--font-display);font-weight:var(--fw-medium);letter-spacing:var(--ls-caps);text-transform:uppercase}

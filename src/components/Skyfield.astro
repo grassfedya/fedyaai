@@ -1,0 +1,448 @@
+---
+import wizardRaw from '../assets/wizard.svg?raw';
+
+/* The landscape. A lone snow-capped Fuji cone in the far distance, a foothill range in
+   front of its base, six flat ridge layers (the far two dissolved toward the horizon),
+   a geometric sun with hairline ray fan and two orbit rings, three hairline birds, pines
+   along the near band, and the overlook: spruces stepping down the left slope under
+   canopy boughs, the pipe-smoking wizard on the crag above the right ledge, stars for
+   night. The
+   mountains draw after the sun, so it rises and sets behind rock. Every color reads a token from
+   the current data-time state, so the whole scene crossfades when the clock (or the
+   preview control) changes the time of day. Purely presentational — time stamping lives
+   in Base.astro, the preview control in the page that wants one.
+
+   The cone and its snow cap are generated here at build time from the same two slope
+   beziers, so the snow's outer edges always sit exactly on the mountain silhouette.
+   Everything below runs once at build and ships as static path strings. */
+
+const cubic = (s, t) => {
+  const u = 1 - t;
+  return [
+    u * u * u * s.p0[0] + 3 * u * u * t * s.c1[0] + 3 * u * t * t * s.c2[0] + t * t * t * s.p3[0],
+    u * u * u * s.p0[1] + 3 * u * u * t * s.c1[1] + 3 * u * t * t * s.c2[1] + t * t * t * s.p3[1],
+  ];
+};
+// Closest on-curve point to a target height. 240 samples is plenty at this scale.
+const onSlopeAtY = (s, y) => {
+  let best = s.p0;
+  let bd = Infinity;
+  for (let i = 0; i <= 240; i++) {
+    const p = cubic(s, i / 240);
+    const d = Math.abs(p[1] - y);
+    if (d < bd) {
+      bd = d;
+      best = p;
+    }
+  }
+  return best;
+};
+const P = (p) => `${Math.round(p[0] * 10) / 10},${Math.round(p[1] * 10) / 10}`;
+
+// The peak: left slope runs base→rim, right slope rim→base. The rim notches are the crater.
+const leftSlope = { p0: [260, 562], c1: [470, 514], c2: [612, 446], p3: [686, 336] };
+const rightSlope = { p0: [752, 338], c1: [822, 448], c2: [966, 518], p3: [1180, 564] };
+const rimNotches = [
+  [700, 328],
+  [712, 334],
+  [724, 328],
+  [738, 330],
+];
+
+const conePath =
+  `M${P(leftSlope.p0)} C${P(leftSlope.c1)} ${P(leftSlope.c2)} ${P(leftSlope.p3)} ` +
+  rimNotches.map((p) => `L${P(p)}`).join(' ') +
+  ` L${P(rightSlope.p0)} C${P(rightSlope.c1)} ${P(rightSlope.c2)} ${P(rightSlope.p3)}` +
+  ` L${rightSlope.p3[0]},810 L${leftSlope.p0[0]},810 Z`;
+
+// Snow: rim, down each shoulder along the sampled slope curves, and a fingered bottom
+// edge between them. Fingers dip deeper at the shoulders than mid-face, the way snow
+// holds on a cone's ridgelines.
+const snowEdgeYs = [348, 366, 382, 392];
+const leftEdge = snowEdgeYs.map((y) => onSlopeAtY(leftSlope, y));
+const rightEdge = snowEdgeYs.map((y) => onSlopeAtY(rightSlope, y));
+const dips = [410, 405, 402, 405, 410];
+const rises = [383, 380, 383, 381];
+const lb = leftEdge[leftEdge.length - 1];
+const rb = rightEdge[rightEdge.length - 1];
+const fingers = [];
+const n = dips.length + rises.length;
+for (let k = 0; k < n; k++) {
+  const x = rb[0] + ((lb[0] - rb[0]) * (k + 1)) / (n + 1);
+  const y = k % 2 === 0 ? dips[k / 2] : rises[(k - 1) / 2];
+  fingers.push([x, y]);
+}
+const snowPath =
+  `M${P(leftSlope.p3)} ` +
+  rimNotches.map((p) => `L${P(p)}`).join(' ') +
+  ` L${P(rightSlope.p0)} ` +
+  rightEdge.map((p) => `L${P(p)}`).join(' ') +
+  ' ' +
+  fingers.map((p) => `L${P(p)}`).join(' ') +
+  ' ' +
+  leftEdge
+    .slice(0, -1)
+    .reverse()
+    .map((p) => `L${P(p)}`)
+    .join(' ') +
+  ' Z';
+
+/* The wizard, inlined from the asset at build. He paints himself in --r6 and --sun;
+   the figure remaps to --fg-deep so he sits on the overlook plane, the smoke keeps sun
+   ink so it re-tints with the sky. */
+const wizardInner = wizardRaw
+  .replace(/^[\s\S]*?<svg[^>]*>/, '')
+  .replace(/<\/svg>\s*$/, '')
+  .replaceAll('var(--r6, #0c1c24)', 'var(--fg-deep)');
+
+/* The overlook silhouettes: irregular spruces stepping down the left slope and canopy
+   boughs entering from the frame edge. Generated here with the same seeded LCG the client
+   scatter uses, so every build ships identical static paths. */
+let seed = 41;
+const rnd = () => ((seed = (seed * 16807) % 2147483647), seed / 2147483647);
+
+// A spruce: 12 branch tiers per side, each tier's reach and notch jittered so no two
+// trees repeat. Origin at the trunk foot, crown at -h.
+const makeSpruce = (h) => {
+  const half = h * 0.3,
+    tiers = 12;
+  const side = (sign) => {
+    const pts = [];
+    for (let i = 1; i <= tiers; i++) {
+      const t = i / tiers;
+      const y = -h + h * Math.pow(t, 1.08);
+      const out = sign * half * Math.pow(t, 0.85) * (0.82 + rnd() * 0.28);
+      const ny = y - h * (0.014 + rnd() * 0.016);
+      const notch = out * (0.52 + rnd() * 0.14);
+      pts.push([out, y], [notch, ny]);
+    }
+    return pts;
+  };
+  let d = `M${(rnd() * 6 - 3).toFixed(1)},${(-h).toFixed(1)}`;
+  d += side(1)
+    .map((p) => ` L${p[0].toFixed(1)},${p[1].toFixed(1)}`)
+    .join('');
+  d += ` L${(h * 0.022).toFixed(1)},0 L${(-h * 0.022).toFixed(1)},0`;
+  d +=
+    side(-1)
+      .reverse()
+      .map((p) => ` L${p[0].toFixed(1)},${p[1].toFixed(1)}`)
+      .join('') + ' Z';
+  return d;
+};
+const spruces = [
+  // The big one is cropped by the top of the frame on purpose: a tree the frame cannot
+  // contain reads as a tree you are sitting under.
+  { d: makeSpruce(300), t: 'translate(80,812) scale(2.95)' },
+  { d: makeSpruce(300), t: 'translate(300,812) scale(1.8)' },
+  { d: makeSpruce(300), t: 'translate(455,812) scale(1.05)' },
+];
+
+// A bough: a drooping spine, gently lobed on top, a fringe of needle teeth hanging off
+// the underside. Origin at the frame edge it grows from.
+seed = 59;
+const makeBough = (L, droop, depth) => {
+  const sy = (x) => droop * Math.pow(x / L, 1.5);
+  let d = `M0,${(-depth * 0.22).toFixed(1)}`;
+  const nTop = 7;
+  for (let i = 1; i <= nTop; i++) {
+    const x = (L * i) / nTop;
+    const up = depth * (0.16 + rnd() * 0.1) * (1 - (0.7 * x) / L);
+    d += ` L${(x - L * 0.03).toFixed(1)},${(sy(x) - up).toFixed(1)}`;
+    d += ` L${x.toFixed(1)},${(sy(x) - up * 0.45).toFixed(1)}`;
+  }
+  d += ` L${L.toFixed(1)},${(sy(L) + depth * 0.1).toFixed(1)}`;
+  const nT = 15;
+  for (let j = nT; j >= 1; j--) {
+    const xb = (L * (j - 0.5)) / nT + L * 0.02 * (rnd() - 0.5);
+    const dp = depth * (0.42 + (1 - xb / L) * 0.58) * (0.85 + rnd() * 0.3);
+    const w = L / nT;
+    d += ` L${(xb + w * 0.32).toFixed(1)},${(sy(xb) + dp * 0.3).toFixed(1)}`;
+    d += ` L${(xb + w * 0.06).toFixed(1)},${(sy(xb) + dp).toFixed(1)}`;
+    d += ` L${(xb - w * 0.18).toFixed(1)},${(sy(xb) + dp * 0.42).toFixed(1)}`;
+  }
+  d += ` L0,${(depth * 0.55).toFixed(1)} Z`;
+  return d;
+};
+const boughs = [
+  { d: makeBough(460, 96, 58), t: 'translate(-10,46) rotate(5)' },
+  { d: makeBough(360, 74, 50), t: 'translate(-10,168) rotate(-1)' },
+  { d: makeBough(258, 54, 42), t: 'translate(-8,286) rotate(3)' },
+  { d: makeBough(220, 46, 40), t: 'translate(148,-12) rotate(34)' },
+];
+---
+
+<div class="skyfield" aria-hidden="true">
+  <svg viewBox="0 0 1440 810" preserveAspectRatio="xMidYMax slice">
+    <g class="skyfield__stars" data-stars></g>
+    <g class="skyfield__sun" data-sun>
+      <circle r="150" fill="var(--sun-glow)" opacity=".28"></circle>
+      <circle r="96" fill="var(--sun-glow)" opacity=".3"></circle>
+      <g class="skyfield__rays" data-rays></g>
+      <circle r="118" fill="none" stroke="var(--ray)" stroke-width="1" opacity=".55"></circle>
+      <circle
+        r="178"
+        fill="none"
+        stroke="var(--ray)"
+        stroke-width="1"
+        opacity=".38"
+        stroke-dasharray="3 9"></circle>
+      <circle r="46" fill="var(--sun)"></circle>
+    </g>
+    <!-- Birds: three hairline chevrons near the sun's dusk seat, the only mark that says
+         how big the valley is. Same 1px weight as the ray fan. -->
+    <g stroke="var(--ray)" stroke-width="1" fill="none" stroke-linecap="round" opacity=".8">
+      <path d="M0,3 Q3.5,-2.5 7,2 Q10.5,-2.5 14,3" transform="translate(598,236) scale(1.15) rotate(-6)"
+      ></path>
+      <path d="M0,3 Q3.5,-2.5 7,2 Q10.5,-2.5 14,3" transform="translate(654,262) scale(.85)"></path>
+      <path d="M0,3 Q3.5,-2.5 7,2 Q10.5,-2.5 14,3" transform="translate(564,282) scale(.62) rotate(8)"
+      ></path>
+    </g>
+    <g data-ridges>
+      <!-- The far peak: a lone Fuji cone, the most distant thing in the scene. Drawn first
+           so every later layer hazes in front of its base. Dusk parks the sun on its
+           crater rim; dawn crests it over the eastern shoulder. -->
+      <g data-depth=".02">
+        <path fill="var(--m1)" d={conePath}></path>
+        <path fill="var(--m1-snow)" d={snowPath}></path>
+      </g>
+      <!-- Foothills: shorter and sharper, overlapping the peak's base to push it back. -->
+      <path
+        data-depth=".045"
+        fill="var(--m2)"
+        d="M0,486 L110,452 L230,478 L340,444 L470,472 L600,448 L720,478 L850,470 L920,486 L1040,456 L1170,482 L1290,458 L1440,484 L1440,810 L0,810 Z"
+      ></path>
+      <path
+        data-depth=".06"
+        fill="var(--r1-haze)"
+        d="M0,560 C120,540 260,522 420,530 C560,537 640,516 760,512 C900,507 1020,528 1150,522 C1270,517 1360,502 1440,508 L1440,810 L0,810 Z"
+      ></path>
+      <path
+        data-depth=".12"
+        fill="var(--r2-haze)"
+        d="M0,590 C150,570 250,548 390,556 C540,565 620,540 780,545 C930,550 1040,572 1180,562 C1300,553 1380,540 1440,545 L1440,810 L0,810 Z"
+      ></path>
+      <path
+        data-depth=".2"
+        fill="var(--r3)"
+        d="M0,632 C130,610 300,586 460,598 C620,610 730,580 900,588 C1060,596 1180,620 1310,610 C1380,605 1420,598 1440,600 L1440,810 L0,810 Z"
+      ></path>
+      <!-- Valley mist: flat translucent bands mixed from the horizon color, so the fog
+           inherits the time of day. This one pools at the valley edges and thins where
+           the view opens to the peak. -->
+      <path
+        class="skyfield__mist"
+        data-depth=".25"
+        d="M0,650 C110,634 240,652 380,640 C520,628 640,650 790,636 C930,624 1060,646 1200,634 C1310,625 1390,636 1440,630 L1440,810 L0,810 Z"
+      ></path>
+      <path
+        data-depth=".3"
+        fill="var(--r4)"
+        d="M0,678 C160,656 320,632 500,646 C680,660 800,626 980,636 C1140,645 1260,668 1440,652 L1440,810 L0,810 Z"
+      ></path>
+      <path
+        data-depth=".42"
+        fill="var(--r5)"
+        d="M0,724 C180,706 340,682 540,696 C740,710 880,676 1060,688 C1220,699 1340,718 1440,706 L1440,810 L0,810 Z"
+      ></path>
+      <g data-depth=".56">
+        <path
+          fill="var(--r6)"
+          d="M0,772 C200,756 400,738 620,750 C840,762 1000,732 1200,744 C1330,752 1400,762 1440,758 L1440,810 L0,810 Z"
+        ></path>
+        <g data-pines fill="var(--r6)"></g>
+        <!-- The near fog, painted over the treeline so the pines stand in it feet-first. -->
+        <path
+          class="skyfield__mist skyfield__mist--near"
+          d="M0,766 C160,754 300,768 460,758 C620,748 760,766 920,756 C1080,747 1220,764 1360,754 C1400,751 1425,756 1440,753 L1440,810 L0,810 Z"
+        ></path>
+      </g>
+      <!-- The overlook: the nearest plane, below --ground so it steps forward. One heavy
+           side: a slope falling from the upper left with three spruces stepping down it,
+           the big one cropped by the frame. On the right a crag climbs back out of the
+           low ledge: one diagonal promontory (base x1146–1440), stepped strata, a prow
+           overhanging the valley, a stone fang at the outer edge. Two tones only — the
+           mass in fg-deep, lit ground faces along the sun-side slope and the crest lips.
+           The wizard stands on the crest, boots at y≈640; the height is tuned to the
+           band stack, so his hat breaks the foothill line and his smoke clears the
+           bright haze bands into the sky. -->
+      <g data-depth=".7" fill="var(--fg-deep)">
+        <path d="M0,810 L0,470 C110,486 220,540 330,610 C430,676 520,736 620,788 L660,810 Z"
+        ></path>
+        <path d="M1440,810 L1440,738 C1352,742 1268,762 1188,788 L1130,810 Z"></path>
+        <path
+          d="M1146,810 L1158,780 L1186,752 L1193,757 L1222,718 L1229,723 L1260,686 L1268,690 L1296,664 L1266,649 L1273,639 L1299,633 L1313,643 L1327,638 L1345,634 L1367,639 L1386,634 L1394,640 L1400,654 L1411,598 L1416,564 L1423,541 L1429,537 L1431,551 L1427,586 L1433,618 L1437,630 L1440,626 L1440,810 Z"
+        ></path>
+        <path
+          fill="var(--ground)"
+          d="M1158,780 L1186,752 L1193,757 L1222,718 L1229,723 L1260,686 L1268,690 L1296,664 L1266,649 L1273,639 L1290,648 L1305,661 L1284,686 L1252,722 L1224,750 L1198,782 L1186,810 L1158,810 Z"
+        ></path>
+        <path fill="var(--ground)" d="M1273,639 L1299,633 L1313,643 L1308,646 L1297,639 L1277,644 Z"
+        ></path>
+        <path
+          fill="var(--ground)"
+          d="M1327,638 L1345,634 L1367,639 L1386,634 L1394,640 L1389,642 L1367,645 L1344,640 L1330,643 Z"
+        ></path>
+        <path fill="var(--ground)" d="M1400,654 L1411,598 L1416,564 L1423,541 L1429,537 L1424,562 L1418,600 L1409,646 Z"
+        ></path>
+        {spruces.map((s) => <path d={s.d} transform={s.t} />)}
+        <!-- Asset space is 460×810, feet at y≈760, facing right; the flip turns him
+             toward the peak and the lift seats his boots on the crag crest at y≈640. -->
+        <g transform="translate(1420,426) scale(-0.282,0.282)" set:html={wizardInner}></g>
+      </g>
+      <!-- The canopy: boughs entering from the left edge, the closest and darkest plane,
+           on the fastest parallax layer. -->
+      <g data-depth=".85" fill="var(--canopy)">
+        {boughs.map((b) => <path d={b.d} transform={b.t} />)}
+      </g>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .skyfield {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      var(--sky-top) 0%,
+      var(--sky-mid) 44%,
+      var(--sky-low) 66%,
+      var(--sky-horizon) 78%,
+      var(--sky-low) 84%
+    );
+    transition: background var(--t-sky);
+  }
+  .skyfield svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .skyfield path,
+  .skyfield circle {
+    transition:
+      fill var(--t-sky),
+      stroke var(--t-sky);
+  }
+  .skyfield__mist {
+    fill: color-mix(in srgb, var(--sky-horizon) 18%, transparent);
+  }
+  .skyfield__mist--near {
+    fill: color-mix(in srgb, var(--sky-horizon) 26%, transparent);
+  }
+  .skyfield__sun {
+    transform: translate(var(--sun-x), var(--sun-y));
+    transition: transform calc(var(--dur-sky) * 1.15) cubic-bezier(0.5, 0, 0.3, 1);
+  }
+  .skyfield__stars {
+    opacity: var(--stars);
+    transition: opacity var(--t-sky);
+  }
+  .skyfield__rays {
+    opacity: var(--ray-strength);
+    transition: opacity var(--t-sky);
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector('.skyfield');
+    if (!root || root.dataset.built) return;
+    root.dataset.built = '1';
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var NS = 'http://www.w3.org/2000/svg';
+
+    // Ray fan: 24 hairlines every 15deg, alternating reach, drawn in on load.
+    var rays = root.querySelector('[data-rays]');
+    var rayLines = [];
+    for (var i = 0; i < 24; i++) {
+      var a = (i * 15 * Math.PI) / 180;
+      var inner = 58,
+        outer = i % 2 === 0 ? 150 : 104;
+      var l = document.createElementNS(NS, 'line');
+      l.setAttribute('x1', (Math.cos(a) * inner).toFixed(1));
+      l.setAttribute('y1', (Math.sin(a) * inner).toFixed(1));
+      l.setAttribute('x2', (Math.cos(a) * outer).toFixed(1));
+      l.setAttribute('y2', (Math.sin(a) * outer).toFixed(1));
+      l.setAttribute('stroke', 'var(--ray)');
+      l.setAttribute('stroke-width', '1');
+      if (!reduced) {
+        var len = outer - inner;
+        l.style.strokeDasharray = len;
+        l.style.strokeDashoffset = len;
+        l.style.transition =
+          'stroke-dashoffset 1.4s cubic-bezier(.3,0,.2,1) ' + (0.5 + i * 0.045) + 's';
+      }
+      rays.appendChild(l);
+      rayLines.push(l);
+    }
+    if (!reduced) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          rayLines.forEach(function (el) {
+            el.style.strokeDashoffset = 0;
+          });
+        });
+      });
+    }
+
+    // Deterministic scatter (seeded LCG) so stars and pines are identical on every load.
+    var seed = 7;
+    function rnd() {
+      seed = (seed * 16807) % 2147483647;
+      return seed / 2147483647;
+    }
+    var stars = root.querySelector('[data-stars]');
+    for (var s = 0; s < 90; s++) {
+      var c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', (rnd() * 1440).toFixed(0));
+      c.setAttribute('cy', (rnd() * 420).toFixed(0));
+      c.setAttribute('r', rnd() < 0.85 ? '0.9' : '1.6');
+      c.setAttribute('fill', '#dfe8ea');
+      c.setAttribute('opacity', (0.3 + rnd() * 0.7).toFixed(2));
+      stars.appendChild(c);
+    }
+
+    var pines = root.querySelector('[data-pines]');
+    var pinePath =
+      'M0,-64 L9,-42 L5,-44 L14,-22 L8,-24 L18,0 L3,0 L3,8 L-3,8 L-3,0 L-18,0 L-8,-24 L-14,-22 L-5,-44 L-9,-42 Z';
+
+    seed = 23;
+    var x = -10;
+    while (x < 1460) {
+      var sc = 0.7 + rnd() * 0.9;
+      var p = document.createElementNS(NS, 'path');
+      p.setAttribute('d', pinePath);
+      var baseY = 760 + Math.sin(x / 240) * 8;
+      p.setAttribute(
+        'transform',
+        'translate(' + x.toFixed(0) + ',' + baseY.toFixed(0) + ') scale(' + sc.toFixed(2) + ')'
+      );
+      pines.appendChild(p);
+      x += 26 + rnd() * 70;
+    }
+
+    // Parallax: a few pixels of drift per layer, near band fastest.
+    if (!reduced) {
+      var layers = root.querySelectorAll('[data-ridges] [data-depth]');
+      var ticking = false;
+      addEventListener(
+        'scroll',
+        function () {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(function () {
+            var y = scrollY;
+            layers.forEach(function (el) {
+              el.style.transform =
+                'translateY(' + (y * parseFloat(el.dataset.depth) * 0.35).toFixed(1) + 'px)';
+            });
+            ticking = false;
+          });
+        },
+        { passive: true }
+      );
+    }
+  })();
+</script>

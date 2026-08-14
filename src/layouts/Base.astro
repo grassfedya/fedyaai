@@ -1,0 +1,179 @@
+---
+import '../styles/global.css';
+import { SITE, sameAs } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** og:type — 'article' on posts, 'website' elsewhere */
+  type?: 'website' | 'article';
+  /** Extra JSON-LD blocks (e.g. Article schema on posts) */
+  jsonLd?: Record<string, unknown>[];
+  /** Full-bleed pages (home): overlay the nav on the hero, no content container */
+  flush?: boolean;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  type = 'website',
+  jsonLd = [],
+  flush = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+// Machine-readable identity layer: Person + WebSite on every page.
+const identity = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${SITE.url}/#person`,
+    name: SITE.name,
+    url: SITE.url,
+    email: `mailto:${SITE.email}`,
+    jobTitle: SITE.role,
+    sameAs,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    url: SITE.url,
+    name: SITE.name,
+    description: SITE.description,
+    publisher: { '@id': `${SITE.url}/#person` },
+  },
+  ...jsonLd,
+];
+
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Writing' },
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+  { href: '/now', label: 'Now' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+
+// Stamped at build time; a deploy is a build.
+const buildDate = new Date()
+  .toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+  .toLowerCase();
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      // Stamp the time of day before first paint so the sky never flashes the wrong state.
+      // dawn 05–08, day 08–17, dusk 17–21 (also the SSR default), night otherwise.
+      (function () {
+        var h = new Date().getHours();
+        document.documentElement.setAttribute(
+          'data-time',
+          h >= 5 && h < 8 ? 'dawn' : h >= 8 && h < 17 ? 'day' : h >= 17 && h < 21 ? 'dusk' : 'night'
+        );
+      })();
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${SITE.name} — Blog`}
+      href={new URL('rss.xml', Astro.site)}
+    />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(identity)} />
+  </head>
+  <body>
+    <header class:list={['nav', flush ? 'nav--overlay' : 'nav--bar']}>
+      <a class="wordmark" href="/">fed<span>ya</span></a>
+      <nav class="nav__links hud" aria-label="Main">
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class:list={[{ on: isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="nav__tools">
+        <a href="/llms.txt" title="llms.txt" aria-label="llms.txt">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="m8 9 3 3-3 3"></path>
+            <path d="M13 15h3"></path>
+          </svg>
+        </a>
+        <a href="/rss.xml" title="RSS feed" aria-label="RSS feed">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 11a9 9 0 0 1 9 9"></path>
+            <path d="M4 4a16 16 0 0 1 16 16"></path>
+            <circle cx="5" cy="19" r="1"></circle>
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <main class:list={['site-main', { 'site-main--flush': flush }]}>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <span class="wordmark wordmark--sm">fed<span>ya</span></span>
+      <div class="footer__links">
+        <a href={SITE.profiles.github}>GitHub</a>
+        <a href={SITE.profiles.linkedin}>LinkedIn</a>
+        <a href={SITE.profiles.x}>X</a>
+        <a href={`mailto:${SITE.email}`}>Email</a>
+        <a href="/rss.xml">Feed</a>
+        <a href="/misc">Misc</a>
+      </div>
+      <span class="hud">© {new Date().getFullYear()} · built {buildDate}</span>
+    </footer>
+  </body>
+</html>

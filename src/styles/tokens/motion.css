@@ -1,0 +1,27 @@
+/* ease-out is the default: fast out, long settle. ease-snap adds a 2% overshoot for confirms
+   and toggles. --t-sky is the slow crossfade every sky/ground color rides when the time of
+   day changes — the one deliberately glacial motion in the system. */
+:root{
+--dur-instant:80ms;
+--dur-fast:140ms;
+--dur-base:220ms;
+--dur-slow:380ms;
+--dur-sky:2400ms;
+--ease-out:cubic-bezier(.22,1,.36,1);
+--ease-in-out:cubic-bezier(.6,0,.35,1);
+--ease-snap:cubic-bezier(.16,1.02,.3,1);
+--ease-sky:cubic-bezier(.4,0,.2,1);
+--t-hover:var(--dur-fast) var(--ease-out);
+--t-press:var(--dur-instant) var(--ease-out);
+--t-panel:var(--dur-base) var(--ease-out);
+--t-sky:var(--dur-sky) var(--ease-sky);
+--press-scale:0.985;
+--press-shift:1px;
+}
+@media (prefers-reduced-motion:reduce){:root{
+--dur-instant:0ms;
+--dur-fast:0ms;
+--dur-base:0ms;
+--dur-slow:0ms;
+--dur-sky:0ms;
+}}

@@ -1,0 +1,69 @@
+/* Raw palette — the "first light" world. Never reference these directly in components —
+   use tokens/semantic.css.
+   The sky is set by the visitor's clock: Base.astro stamps data-time (dawn/day/dusk/night)
+   on <html> before paint, and each state swaps the ramp below. Dusk is the default and the
+   brand state; the whole site chrome re-tints with it because semantic tokens are mixed
+   from --ground. */
+:root{
+/* Gold: the one accent. Hairline geometry, links, focus, the sun. */
+--gold-200:#f3ddb4;--gold-300:#e8c284;--gold-400:#d9a45b;--gold-500:#c98d3f;
+--gold-600:#a96f2c;--gold-700:#7d4f1d;
+/* Paper: warm off-white ink for text on the deep ground. */
+--paper:#efe9db;
+/* Signal hues, pulled from the same landscape: moss / mist / amber / ember. */
+--moss-300:#b5cc96;--moss-500:#93b370;--moss-700:#5c7a42;
+--mist-300:#b3d2d6;--mist-500:#8fb6bd;--mist-700:#527d85;
+--amber-300:#f0c58a;--amber-500:#e0a458;--amber-700:#a06a26;
+--ember-300:#eda58f;--ember-500:#d96a4f;--ember-700:#9c3f2b;
+--black:#000000;--white:#ffffff;
+}
+/* Time states. Sky stops top→horizon, sun disc + glow + hairline ray ink, the lone far
+   peak --m1 (Fuji-shaped, haziest thing in the scene) with its --m1-snow cap, the shorter
+   foothill range --m2 in front of its base, ridge ramp r1 (horizon haze) → r6 (near
+   treeline), and --ground: the darkest ridge AND the page background, which is why the
+   hero lands on the content with no seam.
+   --stars / --ray-strength are opacities; --sun-x/y position the sun group in the
+   1440×810 viewBox. The sun sits behind the mountains: dusk parks it on the crater rim,
+   dawn crests it over the eastern shoulder. */
+:root,:root[data-time="dusk"]{
+--sky-top:#122c3a;--sky-mid:#2c5a5c;--sky-low:#c96f4a;--sky-horizon:#f0a05e;
+--sun:#ffd9a0;--sun-glow:rgba(255,190,120,.55);--ray:rgba(233,196,138,.75);
+--m1:#4e6f72;--m1-snow:#edbd9e;--m2:#2e4b53;
+--r1:#c9825d;--r2:#7c6357;--r3:#3f4f52;--r4:#2a3d43;--r5:#182b33;--r6:#0c1c24;
+--ground:#0c1c24;
+--stars:0;--ray-strength:1;--sun-x:720px;--sun-y:302px;
+}
+:root[data-time="dawn"]{
+--sky-top:#12333e;--sky-mid:#38636a;--sky-low:#d8a06a;--sky-horizon:#f6c98e;
+--sun:#ffe9c4;--sun-glow:rgba(255,214,160,.5);--ray:rgba(240,214,166,.8);
+--m1:#5b7d80;--m1-snow:#f2cfa2;--m2:#3c5f66;
+--r1:#d8a97c;--r2:#8a7a68;--r3:#4a5e5e;--r4:#31474b;--r5:#1c333b;--r6:#0e222b;
+--ground:#0e222b;
+--stars:.25;--ray-strength:1;--sun-x:880px;--sun-y:452px;
+}
+:root[data-time="day"]{
+--sky-top:#8ec7d6;--sky-mid:#b5dde2;--sky-low:#e6ecd9;--sky-horizon:#f3ecd2;
+--sun:#fff3d2;--sun-glow:rgba(255,240,200,.65);--ray:rgba(190,160,100,.5);
+--m1:#93b9bb;--m1-snow:#f7f4e7;--m2:#6f9a98;
+--r1:#c9d3c0;--r2:#93afa4;--r3:#5f8580;--r4:#3f6663;--r5:#274a4c;--r6:#132e35;
+--ground:#132e35;
+--stars:0;--ray-strength:.45;--sun-x:980px;--sun-y:150px;
+}
+/* Derived landscape tokens, shared by all four states. The overlook planes sit below
+   --ground so the nearest things step forward instead of merging with the treeline; the
+   far ridges dissolve toward the horizon so distance reads as haze. Every state gets the
+   stretch for free because these mix from the state tokens above. */
+:root{
+--fg-deep:color-mix(in oklab,var(--ground) 76%,var(--black));
+--canopy:color-mix(in oklab,var(--ground) 60%,var(--black));
+--r1-haze:color-mix(in srgb,var(--sky-horizon) 42%,var(--r1));
+--r2-haze:color-mix(in srgb,var(--sky-horizon) 16%,var(--r2));
+}
+:root[data-time="night"]{
+--sky-top:#050d18;--sky-mid:#0a1c28;--sky-low:#102c36;--sky-horizon:#173b42;
+--sun:#e6edf2;--sun-glow:rgba(210,225,240,.28);--ray:rgba(190,210,225,.35);
+--m1:#122a35;--m1-snow:#5b7889;--m2:#0b1e29;
+--r1:#28444c;--r2:#1e3840;--r3:#152d36;--r4:#0f242d;--r5:#0a1b24;--r6:#06131b;
+--ground:#06131b;
+--stars:1;--ray-strength:.5;--sun-x:1040px;--sun-y:190px;
+}

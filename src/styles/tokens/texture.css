@@ -1,0 +1,12 @@
+:root{
+/* Star-scatter dots — empty states and slots. Paper ink at whisper opacity. */
+--texture-dots:radial-gradient(rgba(239,233,219,.13) 1px,transparent 1px);
+--texture-dots-size:16px 16px;
+/* Hairline orbit — one thin gold ring for empty states that want the geometry layer. */
+--texture-orbit:radial-gradient(circle,transparent 0 62px,rgba(217,164,91,.28) 62px 63px,transparent 63px);
+/* Text-protection gradients, mixed from the current time state's ground. */
+--protect-bottom:linear-gradient(to top,color-mix(in srgb,var(--ground) 96%,transparent) 0%,color-mix(in srgb,var(--ground) 72%,transparent) 38%,transparent 100%);
+--protect-top:linear-gradient(to bottom,color-mix(in srgb,var(--ground) 88%,transparent) 0%,transparent 100%);
+}
+/* The sun's ray draw-in is defined in Skyfield.astro; no global keyframes needed.
+   The old CRT set (scanline, hazard hatch, vignette, blueprint grid) is gone on purpose. */

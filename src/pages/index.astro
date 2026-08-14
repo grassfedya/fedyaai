@@ -1,0 +1,918 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Skyfield from '../components/Skyfield.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const projects = await getCollection('projects');
+const live = projects.filter((p) => p.data.url).length;
+const latest = posts[0];
+
+const fmtShort = (d: Date) =>
+  d
+    .toLocaleDateString('en-GB', { day: '2-digit', month: 'short', timeZone: 'UTC' })
+    .toLowerCase();
+
+const count = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`;
+
+const toWords = (s: string) => s.split(' ').map((w) => [...w]);
+const line1 = toWords('Jack of all trades.');
+const line2 = toWords('Master of');
+const someWord = [...'some.'];
+// Mastered (accent) skills are interleaved through the rest so they pop.
+const skills = [
+  { label: 'Fitness', accent: true },
+  { label: 'Jiu Jitsu', accent: false },
+  { label: 'Hunting', accent: false },
+  { label: 'Engineering', accent: true },
+  { label: 'Social Media', accent: false },
+  { label: 'AWS', accent: false },
+  { label: 'Nutrition', accent: true },
+  { label: 'Skiing', accent: false },
+  { label: 'Distributed Systems', accent: false },
+  { label: 'Marketing', accent: true },
+  { label: 'Wrestling', accent: false },
+  { label: 'GCP', accent: false },
+  { label: 'AI-Development', accent: true },
+  { label: 'Kubernetes', accent: false },
+  { label: 'Harness Engineering', accent: false },
+  { label: 'Sales', accent: true },
+  { label: 'Azure', accent: false },
+  { label: 'Network Engineering', accent: false },
+  { label: 'Speaking', accent: true },
+  { label: 'Self Healing Software', accent: false },
+  { label: 'Managing', accent: false },
+  { label: 'RAG', accent: false },
+  { label: 'Zero to One', accent: true },
+  { label: 'Delegation', accent: false },
+].map((s) => ({ accent: s.accent, parts: toWords(s.label) }));
+
+const tiles = [
+  {
+    href: '/blog',
+    idx: latest ? `01 / new post ${fmtShort(latest.data.date)}` : '01',
+    title: 'Writing',
+    sub: 'AI harnesses one week, posing routines the next. All of it written down.',
+    meta: count(posts.length, 'post'),
+    featured: true,
+  },
+  {
+    href: '/work',
+    idx: '02',
+    title: 'Work',
+    sub: 'Shipped, in progress, and pulled. The pulled ones stay on the page.',
+    meta: `${count(projects.length, 'project')} · ${live} live`,
+    featured: false,
+  },
+  {
+    href: '/about',
+    idx: '03',
+    title: 'About',
+    sub: 'Who I am and why the site covers this much ground.',
+    meta: '1 page',
+    featured: false,
+  },
+  {
+    href: '/contact',
+    idx: '04',
+    title: 'Contact',
+    sub: 'Email works. I reply within 48 hours.',
+    meta: 'async only',
+    featured: false,
+  },
+];
+---
+
+<Base flush>
+  <section class="hero">
+    <Skyfield />
+    <div class="hero__shade"></div>
+    <div class="hero__body">
+      <span class="dateline hud" data-dateline>&nbsp;</span>
+      {/* prettier-ignore */}
+      <h1 class="mega" data-scatter aria-label="Jack of all trades. Master of some.">
+        <span class="mega__layer mega__sentence" data-layer="sentence" aria-hidden="true"
+          ><span class="mega__line">{line1.map((w, wi) => (<><span class="word">{w.map((c) => <span class="ltr" data-ch={c.toUpperCase()}>{c}</span>)}</span>{wi < line1.length - 1 ? ' ' : ''}</>))}</span
+          ><span class="mega__line mega__line--accent">{line2.map((w) => (<><span class="word">{w.map((c) => <span class="ltr" data-ch={c.toUpperCase()}>{c}</span>)}</span>{' '}</>))}<span class="word mega__trigger" data-trigger>{someWord.map((c) => <span class="ltr" data-ch={c.toUpperCase()}>{c}</span>)}</span></span
+        ></span>
+        <span class="mega__layer mega__skills" data-layer="skills" aria-hidden="true">
+          {skills.map((sk) => (
+            <span class:list={['skill', { 'skill--accent': sk.accent }]}>{sk.parts.map((w, wi) => (<><span class="word">{w.map((c) => <span class="ltr" data-ch={c.toUpperCase()}>{c}</span>)}</span>{wi < sk.parts.length - 1 ? ' ' : ''}</>))}</span>
+          ))}
+        </span>
+      </h1>
+      <div class="statusline">
+        <span>engineer / lifter / occasional teacher</span><i>·</i>
+        <span><b>building /</b> inpactive</span><i>·</i>
+        <span><b>writing /</b> {count(posts.length, 'post')}</span><i>·</i>
+        <span><b>site /</b> astro on cloudflare</span>
+      </div>
+    </div>
+    <div class="skyctl hud" role="group" aria-label="Preview the sky at another time of day">
+      <button data-sky="dawn">Dawn</button>
+      <button data-sky="day">Day</button>
+      <button data-sky="dusk">Dusk</button>
+      <button data-sky="night">Night</button>
+      <button data-sky="auto" aria-pressed="true">Now</button>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="sec sec--flush">
+      <div class="sec__head">
+        <span class="sec__title">Index</span>
+        <span class="sec__title sec__title--faint">{tiles.length} sections</span>
+      </div>
+      <div class="tiles">
+        {
+          tiles.map((t) => (
+            <a class:list={['tile', { 'tile--featured': t.featured }]} href={t.href}>
+              <span class="tile__idx">{t.idx}</span>
+              <h2 class="tile__title">{t.title}</h2>
+              <p class="tile__sub">{t.sub}</p>
+              <span class="tile__meta">
+                <span>{t.meta}</span>
+                <span class="tile__arrow">↗</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head">
+        <span class="sec__title">On the bench</span>
+        <span class="sec__title sec__title--faint">not wired yet</span>
+      </div>
+      <div class="lab">
+        <div class="well">
+          <div class="well__center">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M12.89 1.45l8 4A2 2 0 0 1 22 7.24v9.53a2 2 0 0 1-1.11 1.79l-8 4a2 2 0 0 1-1.78 0l-8-4a2 2 0 0 1-1.11-1.8V7.24a2 2 0 0 1 1.11-1.79l8-4a2 2 0 0 1 1.78 0z"
+              ></path>
+              <polyline points="2.32 6.16 12 11 21.68 6.16"></polyline>
+              <line x1="12" y1="22.76" x2="12" y2="11"></line>
+            </svg>
+            <span class="hud">Render slot — three.js</span>
+          </div>
+          <span class="well__note">harness topology, rotating</span>
+        </div>
+        <div class="well">
+          <div class="well__center">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+              ></path>
+              <path d="M15 5.764v15"></path>
+              <path d="M9 3.236v15"></path>
+            </svg>
+            <span class="hud">Map slot — react-map-gl</span>
+          </div>
+          <span class="well__note">where I am this month</span>
+        </div>
+        <div class="well">
+          <div class="well__center">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+              <circle cx="9" cy="9" r="2"></circle>
+              <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+            </svg>
+            <span class="hud">Photo slot</span>
+          </div>
+          <span class="well__note">latest frame — gym, bench, or build</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    height: 100svh;
+    min-height: 640px;
+    overflow: hidden;
+  }
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .hero__shade::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 62%;
+    background: var(--protect-bottom);
+  }
+  .hero__body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: 0 var(--space-12) var(--space-10);
+  }
+  /* Live weekday · date · clock — the rainmeter line. Filled by script, real data only. */
+  .dateline {
+    transition: opacity 0.3s linear;
+    font-size: var(--fs-hud-lg);
+    letter-spacing: 0.38em;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+  .mega {
+    /* Spring with ~7% overshoot for reassembly; gravity ease-in for the fall. */
+    --spring: linear(
+      0,
+      0.0158 1.9%,
+      0.0625 3.9%,
+      0.1407 6.1%,
+      0.4102 11.4%,
+      0.6716 16.6%,
+      0.8674 21.9%,
+      0.9948 27.7%,
+      1.0631 34.5%,
+      1.0782 43.6%,
+      1.0642 50.3%,
+      1.0223 63.9%,
+      1.0043 74.7%,
+      0.9972 87.3%,
+      1
+    );
+    --gravity: cubic-bezier(0.55, 0, 0.85, 0.4);
+    /* Gravity fall to the floor at 26%, then two decaying bounces. */
+    --bounce: linear(
+      0,
+      0.016,
+      0.063,
+      0.141,
+      0.25 13%,
+      0.391,
+      0.563,
+      0.765,
+      1 26%,
+      0.891 32%,
+      0.813 38%,
+      0.785,
+      0.813 44%,
+      0.891 50%,
+      1 56%,
+      0.953 62%,
+      0.941,
+      0.953 68%,
+      1 74%,
+      0.988 80%,
+      0.984,
+      0.988 88%,
+      1
+    );
+    position: relative;
+    display: grid;
+    font-family: var(--font-display);
+    font-weight: var(--fw-semibold);
+    font-size: clamp(44px, 7vw, 96px);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-caps);
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .mega__layer {
+    grid-area: 1 / 1;
+    min-width: 0;
+  }
+  .mega__line {
+    display: block;
+  }
+  .mega__line--accent {
+    color: var(--text-accent);
+  }
+  .word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  /* Words fall as intact units: translate gets a bounce curve, rotation and
+     horizontal slotting ease separately (independent transform properties). */
+  .mega__sentence .word {
+    position: relative;
+    left: 0;
+    scale: 1;
+    transition:
+      translate 0.6s var(--spring),
+      rotate 0.6s var(--spring),
+      scale 0.6s var(--ease-out),
+      opacity 0.5s linear,
+      left 0.6s var(--ease-out);
+    transition-delay: var(--wd, 0ms);
+  }
+  /* Falling words recede: shrink and dim so they land as background debris
+     below the skill cloud instead of colliding with its bottom line. */
+  .mega__sentence .word.fall {
+    translate: 0 var(--fy, 300px);
+    rotate: var(--fr, 15deg);
+    scale: var(--fs, 0.55);
+    opacity: 0.4;
+    left: var(--fx, 0px);
+    transition:
+      translate 0.9s var(--bounce),
+      rotate 0.9s var(--ease-out),
+      scale 0.9s var(--ease-out),
+      opacity 0.7s linear,
+      left 0.9s var(--ease-out);
+    transition-delay: var(--wd, 0ms);
+  }
+  /* Split letters lose inherited letter-spacing (inline-block); restore it as padding. */
+  .mega .ltr {
+    display: inline-block;
+    padding-right: var(--ls-caps);
+    transform-origin: 0 0;
+  }
+  .mega__sentence .ltr {
+    transition:
+      transform 0.6s var(--spring),
+      color 0.45s linear,
+      opacity 0.3s linear;
+    transition-delay: var(--d, 0ms);
+  }
+  .mega__sentence .ltr.tumble {
+    transform: translate(var(--tx, 0px), var(--ty, 34vh)) rotate(var(--tr, 60deg));
+    opacity: 0;
+    transition:
+      transform 0.8s var(--gravity),
+      opacity 0.5s ease-in;
+    transition-delay: var(--d, 0ms);
+    pointer-events: none;
+  }
+  /* Anchored to the headline's bottom edge and allowed to grow upward into the
+     empty hero, so 24 skills never stretch the layout box the sentence sits in. */
+  .mega__skills {
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    column-gap: 0.5em;
+    row-gap: 0.16em;
+    font-size: clamp(19px, 2.2vw, 32px);
+  }
+  .mega.is-skills .mega__skills {
+    visibility: visible;
+  }
+  .mega__skills .ltr {
+    transition:
+      transform 0.6s var(--spring),
+      color 0.45s linear,
+      opacity 0.3s linear;
+    transition-delay: var(--d, 0ms);
+  }
+  .skill {
+    color: var(--text-primary);
+  }
+  .skill--accent {
+    color: var(--text-accent);
+  }
+  .mega__trigger {
+    border-bottom: max(2px, 0.05em) dashed var(--border-accent);
+    cursor: pointer;
+    transition: border-color 0.25s linear;
+  }
+  .mega.is-skills .mega__trigger {
+    border-color: transparent;
+  }
+  .statusline {
+    transition: opacity 0.3s linear;
+  }
+  /* Clear the floor while the cloud is up: fallen words rest where these sit. */
+  .hero__body:has(.mega.is-skills) .dateline,
+  .hero__body:has(.mega.is-skills) .statusline {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mega.is-skills .mega__sentence {
+      visibility: hidden;
+    }
+  }
+  .statusline {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: var(--fs-hud);
+    letter-spacing: var(--ls-hud);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .statusline b {
+    color: var(--text-accent);
+    font-weight: var(--fw-medium);
+  }
+  .statusline i {
+    font-style: normal;
+    color: var(--text-faint);
+  }
+  .skyctl {
+    position: absolute;
+    right: var(--space-12);
+    bottom: var(--space-10);
+    z-index: 3;
+    display: flex;
+    gap: var(--space-1);
+  }
+  .skyctl button {
+    appearance: none;
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: var(--text-muted);
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    padding: 7px 10px 6px;
+    transition:
+      color var(--t-hover),
+      border-color var(--t-hover);
+  }
+  .skyctl button:hover {
+    color: var(--text-primary);
+  }
+  .skyctl button[aria-pressed='true'] {
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+  }
+  .sec {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: var(--space-18) 0;
+  }
+  .sec--flush {
+    padding-bottom: 0;
+  }
+  .sec__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .sec__title {
+    font-family: var(--font-mono);
+    font-size: var(--fs-hud);
+    letter-spacing: var(--ls-hud);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .sec__title--faint {
+    color: var(--text-faint);
+  }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  .tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    min-height: 200px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition:
+      border-color var(--t-hover),
+      transform var(--t-hover);
+  }
+  .tile:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-1px);
+  }
+  .tile__idx {
+    font-family: var(--font-mono);
+    font-size: var(--fs-hud);
+    letter-spacing: var(--ls-hud);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .tile__title {
+    font-family: var(--font-display);
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-caps);
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin: 0;
+    transition: color var(--t-hover);
+  }
+  .tile:hover .tile__title {
+    color: var(--text-accent);
+  }
+  .tile__sub {
+    font-family: var(--font-sans);
+    font-size: var(--fs-body-sm);
+    line-height: var(--lh-normal);
+    color: var(--text-muted);
+    margin: 0;
+    flex: 1;
+  }
+  .tile__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: var(--fs-hud);
+    letter-spacing: var(--ls-hud);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .tile__arrow {
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity var(--t-hover);
+  }
+  .tile:hover .tile__arrow {
+    opacity: 1;
+  }
+  .tile--featured {
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--corner-cut)) 0,
+      100% var(--corner-cut),
+      100% 100%,
+      0 100%
+    );
+    border-color: var(--border-accent);
+    background: var(--surface-accent-softer);
+  }
+  .lab {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  .well {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 230px;
+    background: var(--bg-sunken);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-lg);
+    background-image: var(--texture-dots);
+    background-size: var(--texture-dots-size);
+    overflow: hidden;
+  }
+  .well__center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--text-faint);
+    text-align: center;
+  }
+  .well__center svg {
+    color: var(--text-muted);
+  }
+  .well__center .hud {
+    color: inherit;
+  }
+  .well__note {
+    position: absolute;
+    bottom: var(--space-3);
+    left: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: var(--ls-hud);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  @media (max-width: 900px) {
+    .tiles,
+    .lab {
+      grid-template-columns: 1fr;
+    }
+    .hero__body {
+      padding-left: var(--space-6);
+      padding-right: var(--space-6);
+    }
+    .skyctl {
+      right: var(--space-6);
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    // Sky preview + the live dateline. 'auto' follows the visitor's clock (same buckets as
+    // the pre-paint stamp in Base.astro); the other buttons pin a state for previewing.
+    var root = document.documentElement;
+    var mode = 'auto';
+    function bucket(h) {
+      if (h >= 5 && h < 8) return 'dawn';
+      if (h >= 8 && h < 17) return 'day';
+      if (h >= 17 && h < 21) return 'dusk';
+      return 'night';
+    }
+    function apply() {
+      root.setAttribute('data-time', mode === 'auto' ? bucket(new Date().getHours()) : mode);
+    }
+    var btns = [].slice.call(document.querySelectorAll('.skyctl button'));
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        mode = b.dataset.sky;
+        btns.forEach(function (x) {
+          x.setAttribute('aria-pressed', String(x === b));
+        });
+        apply();
+      });
+    });
+
+    var dl = document.querySelector('[data-dateline]');
+    var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    var months = 'january february march april may june july august september october november december'.split(
+      ' '
+    );
+    function tick() {
+      var n = new Date();
+      var hh = String(n.getHours()).padStart(2, '0');
+      var mm = String(n.getMinutes()).padStart(2, '0');
+      dl.textContent =
+        days[n.getDay()] + ' · ' + months[n.getMonth()] + ' ' + n.getDate() + ' · ' + hh + ':' + mm;
+      if (mode === 'auto') apply();
+    }
+    tick();
+    setInterval(tick, 30000);
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    var mega = document.querySelector('[data-scatter]');
+    if (!mega) return;
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var trigger = mega.querySelector('[data-trigger]');
+    var src = [].slice.call(mega.querySelectorAll('[data-layer="sentence"] .ltr'));
+    var tgt = [].slice.call(mega.querySelectorAll('[data-layer="skills"] .ltr'));
+
+    // Static per-letter params: stagger wave by DOM order, random tumble trajectory.
+    // Total wave spread stays fixed so the letter count doesn't change overall timing.
+    var step = 380 / tgt.length;
+    tgt.forEach(function (el, i) {
+      el.style.setProperty('--d', Math.round(i * step) + 'ms');
+    });
+    src.forEach(function (el, i) {
+      el.style.setProperty('--d', i * 6 + 'ms');
+      el.style.setProperty('--tx', (Math.random() * 140 - 70).toFixed(0) + 'px');
+      el.style.setProperty('--ty', (26 + Math.random() * 16).toFixed(0) + 'vh');
+      el.style.setProperty('--tr', (Math.random() * 240 - 120).toFixed(0) + 'deg');
+    });
+
+    var wordEls = [].slice.call(mega.querySelectorAll('[data-layer="sentence"] .word'));
+    var hero = mega.closest('.hero');
+
+    // Each activation picks a fresh set of words to fall, then recruits skill
+    // letters from the remaining words (greedy match by character).
+    function plan() {
+      var idx = wordEls.map(function (_, i) {
+        return i;
+      });
+      for (var i = idx.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = idx[i];
+        idx[i] = idx[j];
+        idx[j] = tmp;
+      }
+      var fallers = idx.slice(0, 3).map(function (i) {
+        return wordEls[i];
+      });
+      var avail = src.map(function (s) {
+        return fallers.indexOf(s.parentNode) === -1;
+      });
+      var pairs = [];
+      var extras = [];
+      tgt.forEach(function (t) {
+        var ch = t.getAttribute('data-ch');
+        var hit = -1;
+        for (var i = 0; i < src.length; i++) {
+          if (avail[i] && src[i].getAttribute('data-ch') === ch) {
+            hit = i;
+            break;
+          }
+        }
+        if (hit >= 0) {
+          avail[hit] = false;
+          pairs.push([src[hit], t]);
+        } else {
+          extras.push(t);
+        }
+      });
+      var loose = src.filter(function (s, i) {
+        return avail[i];
+      });
+      return { fallers: fallers, pairs: pairs, extras: extras, loose: loose };
+    }
+    var cur = null;
+
+    function freeze(el) {
+      el.style.transition = 'none';
+    }
+    function release(el) {
+      el.style.transition = '';
+      el.style.transform = '';
+      el.style.opacity = '';
+      el.style.color = '';
+    }
+
+    function toSkills() {
+      cur = plan();
+      src.concat(tgt).forEach(function (el) {
+        el._r = el.getBoundingClientRect();
+      });
+      var floor = hero.getBoundingClientRect().bottom - 12;
+      var landing = cur.fallers
+        .map(function (w) {
+          return { w: w, r: w.getBoundingClientRect() };
+        })
+        .sort(function (a, b) {
+          return a.r.left - b.r.left;
+        });
+      var prevRight = -1e9;
+      landing.forEach(function (f) {
+        var lx = Math.max(0, prevRight + 18 - f.r.left);
+        prevRight = f.r.left + lx + f.r.width;
+        var fs = 0.5 + Math.random() * 0.12;
+        // Scale shrinks around the word's center, lifting its bottom edge;
+        // compensate so the scaled word still rests on the floor.
+        var fy = floor - f.r.bottom + ((1 - fs) * f.r.height) / 2;
+        f.w.style.setProperty('--fx', lx.toFixed(0) + 'px');
+        f.w.style.setProperty('--fy', Math.max(0, fy).toFixed(0) + 'px');
+        f.w.style.setProperty('--fs', fs.toFixed(2));
+        f.w.style.setProperty('--fr', (Math.random() * 24 - 12).toFixed(0) + 'deg');
+        f.w.style.setProperty('--wd', Math.round(Math.random() * 150) + 'ms');
+      });
+      cur.pairs.forEach(function (p) {
+        var s = p[0],
+          t = p[1];
+        freeze(t);
+        t.style.transform =
+          'translate(' +
+          (s._r.left - t._r.left) +
+          'px,' +
+          (s._r.top - t._r.top) +
+          'px) scale(' +
+          s._r.height / t._r.height +
+          ')';
+        t.style.color = getComputedStyle(s).color;
+        freeze(s);
+        s.style.opacity = '0';
+      });
+      cur.extras.forEach(function (t) {
+        freeze(t);
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(-0.5em) scale(0.85)';
+      });
+      mega.classList.add('is-skills');
+      cur.fallers.forEach(function (w) {
+        w.classList.add('fall');
+      });
+      cur.loose.forEach(function (s) {
+        s.classList.add('tumble');
+      });
+      void mega.offsetWidth;
+      tgt.forEach(release);
+    }
+
+    function toSentence() {
+      if (!cur) return;
+      cur.pairs.forEach(function (p) {
+        var s = p[0],
+          t = p[1];
+        var sr = s.getBoundingClientRect(),
+          tr = t.getBoundingClientRect();
+        freeze(s);
+        s.style.transform =
+          'translate(' +
+          (tr.left - sr.left) +
+          'px,' +
+          (tr.top - sr.top) +
+          'px) scale(' +
+          tr.height / sr.height +
+          ')';
+        s.style.color = getComputedStyle(t).color;
+        s.style.opacity = '1';
+        freeze(t);
+        t.style.opacity = '0';
+      });
+      cur.extras.forEach(function (t) {
+        t.style.transition = 'transform 0.35s ease, opacity 0.3s linear';
+        t.style.transitionDelay = '0ms';
+        t.style.transform = 'translateY(0.4em)';
+        t.style.opacity = '0';
+      });
+      cur.fallers.forEach(function (w) {
+        w.classList.remove('fall');
+      });
+      cur.loose.forEach(function (s) {
+        s.classList.remove('tumble');
+      });
+      void mega.offsetWidth;
+      cur.pairs.forEach(function (p) {
+        release(p[0]);
+      });
+    }
+
+    function finish() {
+      mega.classList.remove('is-skills');
+      tgt.forEach(function (t) {
+        release(t);
+        t.style.transitionDelay = '';
+      });
+    }
+
+    var want = false,
+      shown = false,
+      busy = false;
+    function run() {
+      if (busy || want === shown) return;
+      busy = true;
+      shown = want;
+      if (reduced) {
+        mega.classList.toggle('is-skills', shown);
+        busy = false;
+        return;
+      }
+      if (shown) toSkills();
+      else toSentence();
+      setTimeout(function () {
+        if (!shown) finish();
+        busy = false;
+        run();
+      }, 1100);
+    }
+
+    var canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (canHover) {
+      trigger.addEventListener('pointerenter', function () {
+        want = true;
+        run();
+      });
+      mega.addEventListener('pointerleave', function () {
+        want = false;
+        run();
+      });
+    } else {
+      mega.addEventListener('click', function () {
+        want = !want;
+        run();
+      });
+    }
+  })();
+</script>

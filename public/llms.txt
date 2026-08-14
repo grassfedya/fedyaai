@@ -1,0 +1,19 @@
+# Fedya Muzyka
+
+> Personal site of Fedya Muzyka, a software engineer and builder who designs and ships web products. Currently working on Inpactive (https://inpactive.com).
+
+All pages are static, semantic HTML — no JavaScript required to read them.
+
+## Pages
+
+- [About](https://fedya.ai/about): Who Fedya Muzyka is and what he does
+- [Work](https://fedya.ai/work): Selected projects and products
+- [Blog](https://fedya.ai/blog): Posts; feed at https://fedya.ai/rss.xml
+- [Now](https://fedya.ai/now): What he's focused on right now
+- [Contact](https://fedya.ai/contact): How to reach him
+- [Misc](https://fedya.ai/misc): Everything else
+
+## Contact
+
+- Email: fed@inpactive.com
+- GitHub: https://github.com/muzykafs

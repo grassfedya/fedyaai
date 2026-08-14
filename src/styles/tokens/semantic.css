@@ -1,0 +1,38 @@
+/* Semantic aliases. Components reference ONLY these.
+   Surfaces and borders are color-mixed from --ground so the whole chrome drifts with the
+   time of day: bluest at night, warmest at dusk. Text is paper ink in every state — the
+   page below the hero stays deep in all four, only the sky goes light at noon. */
+:root{
+--bg-page:var(--ground);--bg-sunken:color-mix(in oklab,var(--ground) 88%,var(--black));
+--bg-scrim:color-mix(in srgb,var(--ground) 82%,transparent);
+--surface-1:color-mix(in oklab,var(--ground) 96%,var(--paper));
+--surface-2:color-mix(in oklab,var(--ground) 93%,var(--paper));
+--surface-3:color-mix(in oklab,var(--ground) 90%,var(--paper));
+--surface-raised:color-mix(in oklab,var(--ground) 87%,var(--paper));
+--surface-input:color-mix(in oklab,var(--ground) 94%,var(--black));
+--surface-hover:color-mix(in oklab,var(--ground) 89%,var(--paper));
+--surface-active:color-mix(in oklab,var(--ground) 84%,var(--paper));
+--surface-accent-soft:color-mix(in srgb,var(--gold-400) 12%,transparent);
+--surface-accent-softer:color-mix(in srgb,var(--gold-400) 6%,transparent);
+--border-hairline:color-mix(in oklab,var(--ground) 84%,var(--paper));
+--border-subtle:color-mix(in oklab,var(--ground) 89%,var(--paper));
+--border-strong:color-mix(in oklab,var(--ground) 72%,var(--paper));
+--border-accent:var(--gold-500);--border-focus:var(--gold-400);
+--text-primary:var(--paper);
+--text-secondary:color-mix(in oklab,var(--paper) 80%,var(--ground));
+--text-muted:color-mix(in oklab,var(--paper) 62%,var(--ground));
+--text-faint:color-mix(in oklab,var(--paper) 46%,var(--ground));
+--text-inverse:var(--ground);--text-accent:var(--gold-300);
+--text-link:var(--gold-300);--text-link-hover:var(--gold-200);
+--accent:var(--gold-400);--accent-hover:var(--gold-300);--accent-press:var(--gold-500);
+--accent-ink:var(--ground);--accent-dim:var(--gold-600);
+--success:var(--moss-500);--success-ink:var(--moss-700);
+--success-soft:color-mix(in srgb,var(--moss-500) 14%,transparent);
+--info:var(--mist-500);--info-ink:var(--mist-700);
+--info-soft:color-mix(in srgb,var(--mist-500) 14%,transparent);
+--warn:var(--amber-500);--warn-soft:color-mix(in srgb,var(--amber-500) 14%,transparent);
+--danger:var(--ember-500);--danger-ink:var(--ember-700);
+--danger-soft:color-mix(in srgb,var(--ember-500) 14%,transparent);
+--meter-track:color-mix(in oklab,var(--ground) 87%,var(--paper));--meter-fill:var(--gold-400);
+--selection-bg:var(--gold-400);--selection-fg:var(--ground);
+}

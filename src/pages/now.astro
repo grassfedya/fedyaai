@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+
+<Base title={`Now — ${SITE.name}`} description={`What ${SITE.name} is focused on right now.`}>
+  <h1>Now</h1>
+  {/* Freshness is a real AI-citation signal — update this page (and the date) every month or two. */}
+  <p><em>Updated August 5, 2026</em></p>
+  <p>
+    <!-- TODO: what you're actually focused on right now -->
+    I'm currently focused on building <a href="https://inpactive.com">Inpactive</a> and rebuilding
+    this site.
+  </p>
+</Base>

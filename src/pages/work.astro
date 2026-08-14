@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order || b.data.year - a.data.year
+);
+---
+
+<Base title={`Work — ${SITE.name}`} description={`Selected projects and products built by ${SITE.name}.`}>
+  <h1>Work</h1>
+  <ul>
+    {
+      projects.map((p) => (
+        <li>
+          <p>
+            {p.data.url ? <a href={p.data.url}>{p.data.title}</a> : <strong>{p.data.title}</strong>}
+            ({p.data.year}){p.data.repo && (
+              <>
+                {' '}
+                — <a href={p.data.repo}>source</a>
+              </>
+            )}
+            <br />
+            {p.data.description}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

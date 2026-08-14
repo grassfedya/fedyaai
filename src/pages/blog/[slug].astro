@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../config';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const iso = (d: Date) => d.toISOString();
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: iso(post.data.date),
+  dateModified: iso(post.data.updated ?? post.data.date),
+  url: new URL(`/blog/${post.id}`, Astro.site).href,
+  author: { '@id': `${SITE.url}/#person` },
+  publisher: { '@id': `${SITE.url}/#person` },
+};
+---
+
+<Base
+  title={`${post.data.title} — ${SITE.name}`}
+  description={post.data.description}
+  type="article"
+  jsonLd={[articleLd]}
+>
+  <article>
+    <h1>{post.data.title}</h1>
+    <p>
+      <time datetime={iso(post.data.date)}>{fmt(post.data.date)}</time>
+      {
+        post.data.updated && (
+          <>
+            {' '}
+            · Updated <time datetime={iso(post.data.updated)}>{fmt(post.data.updated)}</time>
+          </>
+        )
+      }
+    </p>
+    <Content />
+  </article>
+</Base>

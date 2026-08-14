@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "fedyaai",
+  "compatibility_date": "2026-08-01",
+  // Static-assets-only Worker: no server code, just the built site on the edge.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

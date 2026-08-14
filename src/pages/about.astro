@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+
+<Base title={`About — ${SITE.name}`} description={SITE.description}>
+  <h1>About</h1>
+
+  {/*
+    GEO note: each section opens with a sentence that answers its heading directly
+    and can be quoted standalone by an AI engine. Keep that shape as you rewrite.
+  */}
+  <p>
+    <!-- TODO: real bio. First sentence = complete standalone answer. -->
+    Fedya Muzyka is a software engineer and builder who designs and ships web products, from first
+    prototype to production. He currently works on <a href="https://inpactive.com">Inpactive</a>.
+  </p>
+
+  <h2>What I do</h2>
+  <p>
+    <!-- TODO: concrete specifics — stack, domains, the kind of problems you take on. -->
+    I build full-stack web applications, with a focus on shipping fast without giving up craft.
+    Recent work spans product engineering, developer tooling, and AI-assisted workflows.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    The best way to reach me is email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. More ways
+    on the <a href="/contact">contact page</a>.
+  </p>
+</Base>
