@@ -23,49 +23,40 @@ fact, cut it.
 
 Raw palette lives in `src/styles/tokens/palette.css`. Components never touch it; they use
 `src/styles/tokens/semantic.css` only. That indirection is the reason the whole redesign
-shipped without editing a single component, keep it sacred.
+shipped without editing a single component, keep it sacred. The Skyfield scene is the one
+exception, spelled out below.
 
-Each time state defines a sky gradient (`--sky-top/mid/low/horizon`), a sun
-(`--sun`, `--sun-glow`, `--ray`), the lone far peak (`--m1`, a Fuji cone with an
-`--m1-snow` cap that re-tints per state: pink at dusk, gold at dawn, white at day, dim
-moonlit blue at night), a shorter foothill range in front of its base (`--m2`), a
-six-step ridge ramp (`--r1` horizon haze → `--r6` near treeline), and `--ground`. The
-depth stack runs peak → foothills → six ridges → the overlook, and the overlook is
-deliberately one-sided: a slope falls from the upper left with three irregular spruces
-stepping down it (the biggest cropped by the top of the frame, so the visitor sits under
-it), canopy boughs enter from the left edge as the closest plane, and the right ledge
-stays low and open so the valley drains toward the peak — then a crag climbs back out
-of it: one diagonal promontory (base x1146–1440) with stepped strata, a prow
-overhanging the valley, and a stone fang at its outer edge, the mass in `--fg-deep`
-with lit `--ground` faces along the sun side and the crest lips. The only figure in
-the world, the wizard (`src/assets/wizard.svg`, inlined at build and flipped to face
-the peak), stands on the crag's crest, pipe lit, boots at y≈640 — the height is tuned
-to the band stack: his hat breaks the foothill line, his chest and robe land in front
-of the r1/r2 haze bands, and his smoke clears those bright bands into the dark
-foothills and sky; his figure remaps to the overlook plane and
-his smoke strands stay in sun ink, so they re-tint with the sky: gold at dusk,
-moon-white at night. Three hairline bird chevrons near the sun's dusk seat carry the
-size of the valley. Value stretch, all derived tokens in `palette.css`: the overlook
-planes sit below `--ground` (`--fg-deep` 24% toward black, `--canopy` 40%) so the
-nearest things step forward, and the far ridges dissolve toward the horizon
-(`--r1-haze` 42% into `--sky-horizon`, `--r2-haze` 16%) so distance reads as haze. The
-mountains sit in front of the sun on purpose: dusk parks it on the crater rim, dawn
-crests it over the eastern shoulder; at night the cone dissolves into the sky and only
-the snow cap stays legible. The overlook lives at the edges of the 1440 viewBox, so
-phone-width crops lose the canopy, spruces, and wizard; the peak stays centered and
-survives every crop. Two structural tricks:
+### The Skyfield scene (August 2026 rebuild)
 
-- `--ground` is both the darkest ridge and the page background, so the hero lands on the
-  content with no seam.
-- The cone and its snow cap are generated at build time in `Skyfield.astro` from the same
-  two slope beziers, so the snow's edges always sit exactly on the silhouette. Change the
-  slope constants in the frontmatter, not the path strings.
-- Valley mist is two flat bands filled with a transparent `color-mix` of `--sky-horizon`
-  (18% mid-valley, 26% on the near treeline), so the fog re-tints with the time of day
-  for free. It pools at the valley edges and thins where the view opens to the peak; the
-  near band paints over the pine feet so the treeline stands in it.
-- Semantic surfaces and borders are `color-mix()`ed from `--ground`, so the entire chrome
-  re-tints with the time of day. Nothing else needs to know the time exists.
+The hero landscape is a traced painting, not hand-drawn geometry. The scene is a
+2028x1108 SVG traced from `public/images/reference_bg.png` (whole-frame luminance MAE
+1.55 against it at dawn): the snow-capped summit with its crevasse detail, far and mid
+ridge bands, the river winding through terraced fields, green hills, and a foreground
+forest with the wizard painted into the right crag. Time-of-day relighting is 313
+measured color tokens (`--t0` to `--t312`), registered with `@property syntax:'<color>'`
+so CSS can tween them. Dawn values sit on `html`; `html[data-time="day|dusk|night"]`
+override them with palettes sampled from `public/images/Day.png`, `Dusk.png`, and
+`Night.png` by per-region luminance-quantile transfer. The sun physically travels to a
+per-state seat as a composed CSS transform, and overlay groups fade per state: stars and
+the moon at night, warm cap rim and horizon glow at dusk, the day halo, the flock of
+birds at day only (a standing rule: the reference paints them at dawn, we do not).
+
+The whole scene is generator output. `parity/stage4/gen_stage4.py` emits it from the
+traced dawn geometry plus the three variant paintings, and `parity/stage4/emit_site.py`
+adapts it for the site: `src/assets/skyfield-scene.svg` (the geometry, inlined by
+`Skyfield.astro`) and `src/styles/tokens/skyfield.generated.css` (the tokens and state
+rules). Edit neither by hand; change the generator and re-emit. This is the sanctioned
+exception to the semantic-tokens rule: the Skyfield tokens ARE the component's palette,
+measured from art, and nothing outside the Skyfield component may reference them.
+`palette.css` and `semantic.css` keep governing the site chrome exactly as before, and
+the scene's timing rides the same `--t-sky` / `--dur-sky` pair from `motion.css`.
+
+The old build-generated scene tokens in `palette.css` (`--m1`, `--m2`, `--r1` to `--r6`,
+`--sun-x/y`, `--stars`, `--ray-strength`, the haze mixes) are legacy: the chrome still
+derives from `--ground` and the sky stops, but no component draws with the ridge and sun
+tokens anymore. The scene's bottom edge no longer equals `--ground` either; the hero
+lands on the page through `--protect-bottom` (texture.css), which runs the lower 62% of
+the hero down to 96% `--ground`.
 
 The dusk ramp, horizon to foreground, sampled off the moodboard:
 `#F0A05E #C9825D #7C6357 #3F4F52 #2A3D43 #182B33 #0C1C24`.
@@ -113,11 +104,15 @@ column is the thing that sits centered on the page. Rhythm comes from a flex col
 
 Slow and scarce. The budget on any page:
 
-- The sky crossfade (`--t-sky`, 2.4s) when the time state changes, including the sun
-  physically moving. This is the one deliberately glacial motion in the system.
-- The ray fan drawing in on load (Skyfield only).
-- A few pixels of ridge parallax on scroll.
+- The sky crossfade (`--t-sky`, 2.4s) when the time state changes: all 313 scene tokens
+  tween, the sun travels to its seat (holding full brightness until it lands behind the
+  dusk ridge, then fading in 0.9s), and the moon rises 62px at night. This is the one
+  deliberately glacial motion in the system. Measured at 58 to 61 fps in Chrome; the
+  first transition after load pays one ~430ms restyle frame.
 - The jack-of-all-trades letter scatter, which predates this system and earns its place.
+
+The old scene's ray-fan draw-in and scroll parallax went with the rebuild; the traced
+scene ships with zero JS.
 
 Nothing below the fold animates on scroll. No staggered fade-ins, no hover scale, no
 count-ups. `prefers-reduced-motion` zeroes all of it.
@@ -133,13 +128,16 @@ count-ups. `prefers-reduced-motion` zeroes all of it.
 
 ## File map
 
-- `src/styles/tokens/palette.css` — raw colors, the four time states
+- `src/styles/tokens/palette.css` — raw colors, the four time states (chrome only now; the scene has its own generated tokens)
 - `src/styles/tokens/semantic.css` — the only tokens components may use
+- `src/styles/tokens/skyfield.generated.css` — the scene's 313 relighting tokens and state rules; generated, never hand-edited
 - `src/styles/tokens/typography.css`, `fonts.css` — type scale and webfonts
 - `src/styles/tokens/texture.css`, `elevation.css`, `motion.css`, `spacing.css`, `base.css`
 - `src/styles/prose.css` — long-form article typography, imported by `src/pages/blog/[slug].astro`
-- `src/components/Skyfield.astro` — the landscape: the peak and its snow, foothills, ridges, sun, birds, stars, pines, the overlook spruces and canopy, parallax
-- `src/assets/wizard.svg` — the wizard illustration, inlined into Skyfield at build; paints in `--r6`/`--sun` with fallbacks (the figure is remapped to `--fg-deep` on the way in)
+- `src/components/Skyfield.astro` — thin wrapper that inlines the generated scene and imports its CSS
+- `src/assets/skyfield-scene.svg` — the traced 2028x1108 scene geometry; generated, never hand-edited
+- `parity/stage4/` (gitignored) — the generator pipeline: `gen_stage4.py` (scene + tokens from `working.svg` and the variant paintings), `emit_site.py` (adapts the artifact for the site). The published Claude artifact "Skyfield" is the canonical backup if this directory is lost
+- `src/assets/wizard-bear.svg` — the wizard riding his bear. No longer inlined anywhere: the rebuilt scene paints the wizard inside the foreground forest. Kept with `wizard.svg` and `bear.svg` as source assets
 - `src/layouts/Base.astro` — pre-paint `data-time` stamp, nav, footer
 - Sky preview control and live dateline: `src/pages/index.astro`
 
@@ -173,9 +171,12 @@ The images and references the system was built from, and what each one contribut
 
 ## Known weak spots
 
-- The day state is the least resolved: the sky mids read murky. Tune the five
-  `[data-time="day"]` sky hexes in `palette.css` before calling it finished.
-- The near treeline is still one repeated pine path, so up close it reads stamped. The
-  overlook no longer shares it (the spruces and boughs are generated, seeded, in
-  `Skyfield.astro`'s frontmatter), which contains the problem to the mid-distance band.
-- The hero sun glow is two flat circles; a radial gradient would sit better at day.
+- At night the mountain base haze band's flat gate (y=705 in scene space, invisible in
+  the dawn paint) reads as a faint horizontal seam across the rock. Inherited from the
+  stage-4 relighting, present in the artifact too, not a port artifact.
+- The scene SVG is 653KB raw, about 193KB gzipped, inlined into every page that renders
+  the hero. Homepage only today; think before putting Skyfield on more pages.
+- At phone widths the sky preview control and the statusline overlap in the hero. This
+  predates the rebuild.
+- The homepage serves 850KB of HTML before compression; the old scene was ~40KB. The
+  trade was accepted for the painted scene, revisit if it ever bothers.

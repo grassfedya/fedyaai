@@ -1,0 +1,816 @@
+/* GENERATED FILE — do not edit by hand. gen_stage4.py owns this.
+   Regenerate: python parity/stage4/emit_site.py (reads parity/stage4/artifact.html,
+   itself emitted by gen_stage4.py from working.svg + the time-of-day variant images).
+
+   The Skyfield scene's palette: 313 measured color tokens (--t0..--t312) registered
+   with @property so they tween, dawn values on html, overrides per
+   html[data-time="day|dusk|night"], plus per-group state rules (sun travel, moon,
+   stars, birds at day only, dusk rim/horizon). Timing tokens --t-sky / --dur-sky
+   come from tokens/motion.css. This file is the ONE exception to the
+   "components use semantic tokens only" rule: these tokens ARE the scene,
+   sampled from the reference paintings, and nothing outside the Skyfield
+   component may reference them. */
+@property --t0{syntax:'<color>';inherits:true;initial-value:#f6c7a9;}
+@property --t1{syntax:'<color>';inherits:true;initial-value:#87a9a7;}
+@property --t2{syntax:'<color>';inherits:true;initial-value:#9fbcba;}
+@property --t3{syntax:'<color>';inherits:true;initial-value:#afc6c6;}
+@property --t4{syntax:'<color>';inherits:true;initial-value:#bbcecb;}
+@property --t5{syntax:'<color>';inherits:true;initial-value:#b0c8c4;}
+@property --t6{syntax:'<color>';inherits:true;initial-value:#becec8;}
+@property --t7{syntax:'<color>';inherits:true;initial-value:#bdccc7;}
+@property --t8{syntax:'<color>';inherits:true;initial-value:#b7c7c3;}
+@property --t9{syntax:'<color>';inherits:true;initial-value:#abbeba;}
+@property --t10{syntax:'<color>';inherits:true;initial-value:#9db2af;}
+@property --t11{syntax:'<color>';inherits:true;initial-value:#93aaa9;}
+@property --t12{syntax:'<color>';inherits:true;initial-value:#8aa2a3;}
+@property --t13{syntax:'<color>';inherits:true;initial-value:#829c9d;}
+@property --t14{syntax:'<color>';inherits:true;initial-value:#abc9d4;}
+@property --t15{syntax:'<color>';inherits:true;initial-value:#b0c7d1;}
+@property --t16{syntax:'<color>';inherits:true;initial-value:#b8c3cb;}
+@property --t17{syntax:'<color>';inherits:true;initial-value:#c6c1c3;}
+@property --t18{syntax:'<color>';inherits:true;initial-value:#d4bdbb;}
+@property --t19{syntax:'<color>';inherits:true;initial-value:#dfbab2;}
+@property --t20{syntax:'<color>';inherits:true;initial-value:#eab7ac;}
+@property --t21{syntax:'<color>';inherits:true;initial-value:#f1b9aa;}
+@property --t22{syntax:'<color>';inherits:true;initial-value:#f1c2b1;}
+@property --t23{syntax:'<color>';inherits:true;initial-value:#f5d0bf;}
+@property --t24{syntax:'<color>';inherits:true;initial-value:#f5d0bf;}
+@property --t25{syntax:'<color>';inherits:true;initial-value:#ece0ce;}
+@property --t26{syntax:'<color>';inherits:true;initial-value:#d0d9e5;}
+@property --t27{syntax:'<color>';inherits:true;initial-value:#6b7f86;}
+@property --t28{syntax:'<color>';inherits:true;initial-value:#21383d;}
+@property --t29{syntax:'<color>';inherits:true;initial-value:#a0adb7;}
+@property --t30{syntax:'<color>';inherits:true;initial-value:#3c5a5c;}
+@property --t31{syntax:'<color>';inherits:true;initial-value:#909ca5;}
+@property --t32{syntax:'<color>';inherits:true;initial-value:#b8c5cf;}
+@property --t33{syntax:'<color>';inherits:true;initial-value:#7c9492;}
+@property --t34{syntax:'<color>';inherits:true;initial-value:#e9eff7;}
+@property --t35{syntax:'<color>';inherits:true;initial-value:#d8c0b5;}
+@property --t36{syntax:'<color>';inherits:true;initial-value:#597176;}
+@property --t37{syntax:'<color>';inherits:true;initial-value:#79889d;}
+@property --t38{syntax:'<color>';inherits:true;initial-value:#baabae;}
+@property --t39{syntax:'<color>';inherits:true;initial-value:#e4cec4;}
+@property --t40{syntax:'<color>';inherits:true;initial-value:#cfafa7;}
+@property --t41{syntax:'<color>';inherits:true;initial-value:#789593;}
+@property --t42{syntax:'<color>';inherits:true;initial-value:#698595;}
+@property --t43{syntax:'<color>';inherits:true;initial-value:#647f8f;}
+@property --t44{syntax:'<color>';inherits:true;initial-value:#5a7680;}
+@property --t45{syntax:'<color>';inherits:true;initial-value:#526c76;}
+@property --t46{syntax:'<color>';inherits:true;initial-value:#22393a;}
+@property --t47{syntax:'<color>';inherits:true;initial-value:#c5a8a1;}
+@property --t48{syntax:'<color>';inherits:true;initial-value:#bea098;}
+@property --t49{syntax:'<color>';inherits:true;initial-value:#b39791;}
+@property --t50{syntax:'<color>';inherits:true;initial-value:#a88e87;}
+@property --t51{syntax:'<color>';inherits:true;initial-value:#99827c;}
+@property --t52{syntax:'<color>';inherits:true;initial-value:#877470;}
+@property --t53{syntax:'<color>';inherits:true;initial-value:#716764;}
+@property --t54{syntax:'<color>';inherits:true;initial-value:#ffdacb;}
+@property --t55{syntax:'<color>';inherits:true;initial-value:#c4a7b0;}
+@property --t56{syntax:'<color>';inherits:true;initial-value:#8592ac;}
+@property --t57{syntax:'<color>';inherits:true;initial-value:#7f8caa;}
+@property --t58{syntax:'<color>';inherits:true;initial-value:#8d97b0;}
+@property --t59{syntax:'<color>';inherits:true;initial-value:#7d89a9;}
+@property --t60{syntax:'<color>';inherits:true;initial-value:#7483a6;}
+@property --t61{syntax:'<color>';inherits:true;initial-value:#8791ad;}
+@property --t62{syntax:'<color>';inherits:true;initial-value:#5c718f;}
+@property --t63{syntax:'<color>';inherits:true;initial-value:#697c97;}
+@property --t64{syntax:'<color>';inherits:true;initial-value:#9299b2;}
+@property --t65{syntax:'<color>';inherits:true;initial-value:#657ea3;}
+@property --t66{syntax:'<color>';inherits:true;initial-value:#f8f9fb;}
+@property --t67{syntax:'<color>';inherits:true;initial-value:#f4f5f8;}
+@property --t68{syntax:'<color>';inherits:true;initial-value:#f0f2f6;}
+@property --t69{syntax:'<color>';inherits:true;initial-value:#ebeef3;}
+@property --t70{syntax:'<color>';inherits:true;initial-value:#e6e9f0;}
+@property --t71{syntax:'<color>';inherits:true;initial-value:#dfe4ed;}
+@property --t72{syntax:'<color>';inherits:true;initial-value:#d9dee7;}
+@property --t73{syntax:'<color>';inherits:true;initial-value:#d2d8e2;}
+@property --t74{syntax:'<color>';inherits:true;initial-value:#ccd2dd;}
+@property --t75{syntax:'<color>';inherits:true;initial-value:#c4ccd9;}
+@property --t76{syntax:'<color>';inherits:true;initial-value:#bbc4d4;}
+@property --t77{syntax:'<color>';inherits:true;initial-value:#b3bed0;}
+@property --t78{syntax:'<color>';inherits:true;initial-value:#a0aaba;}
+@property --t79{syntax:'<color>';inherits:true;initial-value:#abb6c8;}
+@property --t80{syntax:'<color>';inherits:true;initial-value:#9aa4b5;}
+@property --t81{syntax:'<color>';inherits:true;initial-value:#8b98ad;}
+@property --t82{syntax:'<color>';inherits:true;initial-value:#8291ab;}
+@property --t83{syntax:'<color>';inherits:true;initial-value:#7d8ea9;}
+@property --t84{syntax:'<color>';inherits:true;initial-value:#7b8ca8;}
+@property --t85{syntax:'<color>';inherits:true;initial-value:#798aa7;}
+@property --t86{syntax:'<color>';inherits:true;initial-value:#7789a4;}
+@property --t87{syntax:'<color>';inherits:true;initial-value:#7486a1;}
+@property --t88{syntax:'<color>';inherits:true;initial-value:#70819c;}
+@property --t89{syntax:'<color>';inherits:true;initial-value:#6a7d99;}
+@property --t90{syntax:'<color>';inherits:true;initial-value:#667996;}
+@property --t91{syntax:'<color>';inherits:true;initial-value:#647794;}
+@property --t92{syntax:'<color>';inherits:true;initial-value:#617592;}
+@property --t93{syntax:'<color>';inherits:true;initial-value:#5f7492;}
+@property --t94{syntax:'<color>';inherits:true;initial-value:#5e7391;}
+@property --t95{syntax:'<color>';inherits:true;initial-value:#5c728f;}
+@property --t96{syntax:'<color>';inherits:true;initial-value:#5a708e;}
+@property --t97{syntax:'<color>';inherits:true;initial-value:#596f8c;}
+@property --t98{syntax:'<color>';inherits:true;initial-value:#556b89;}
+@property --t99{syntax:'<color>';inherits:true;initial-value:#596f8f;}
+@property --t100{syntax:'<color>';inherits:true;initial-value:#8d91b0;}
+@property --t101{syntax:'<color>';inherits:true;initial-value:#858cad;}
+@property --t102{syntax:'<color>';inherits:true;initial-value:#7486a7;}
+@property --t103{syntax:'<color>';inherits:true;initial-value:#6882a4;}
+@property --t104{syntax:'<color>';inherits:true;initial-value:#6781a4;}
+@property --t105{syntax:'<color>';inherits:true;initial-value:#6680a3;}
+@property --t106{syntax:'<color>';inherits:true;initial-value:#657fa1;}
+@property --t107{syntax:'<color>';inherits:true;initial-value:#637e9f;}
+@property --t108{syntax:'<color>';inherits:true;initial-value:#799c99;}
+@property --t109{syntax:'<color>';inherits:true;initial-value:#779894;}
+@property --t110{syntax:'<color>';inherits:true;initial-value:#749390;}
+@property --t111{syntax:'<color>';inherits:true;initial-value:#70908e;}
+@property --t112{syntax:'<color>';inherits:true;initial-value:#6b8b89;}
+@property --t113{syntax:'<color>';inherits:true;initial-value:#658685;}
+@property --t114{syntax:'<color>';inherits:true;initial-value:#608281;}
+@property --t115{syntax:'<color>';inherits:true;initial-value:#5c7e7d;}
+@property --t116{syntax:'<color>';inherits:true;initial-value:#557977;}
+@property --t117{syntax:'<color>';inherits:true;initial-value:#537876;}
+@property --t118{syntax:'<color>';inherits:true;initial-value:#527674;}
+@property --t119{syntax:'<color>';inherits:true;initial-value:#365f62;}
+@property --t120{syntax:'<color>';inherits:true;initial-value:#274140;}
+@property --t121{syntax:'<color>';inherits:true;initial-value:#537472;}
+@property --t122{syntax:'<color>';inherits:true;initial-value:#547979;}
+@property --t123{syntax:'<color>';inherits:true;initial-value:#6681a0;}
+@property --t124{syntax:'<color>';inherits:true;initial-value:#a8bfbc;}
+@property --t125{syntax:'<color>';inherits:true;initial-value:#547472;}
+@property --t126{syntax:'<color>';inherits:true;initial-value:#5f7d7a;}
+@property --t127{syntax:'<color>';inherits:true;initial-value:#446466;}
+@property --t128{syntax:'<color>';inherits:true;initial-value:#3a5b5e;}
+@property --t129{syntax:'<color>';inherits:true;initial-value:#72908c;}
+@property --t130{syntax:'<color>';inherits:true;initial-value:#284141;}
+@property --t131{syntax:'<color>';inherits:true;initial-value:#bdcdc9;}
+@property --t132{syntax:'<color>';inherits:true;initial-value:#b3c5c0;}
+@property --t133{syntax:'<color>';inherits:true;initial-value:#a4b9b6;}
+@property --t134{syntax:'<color>';inherits:true;initial-value:#9db1b0;}
+@property --t135{syntax:'<color>';inherits:true;initial-value:#96adac;}
+@property --t136{syntax:'<color>';inherits:true;initial-value:#92a9a9;}
+@property --t137{syntax:'<color>';inherits:true;initial-value:#8fa6a7;}
+@property --t138{syntax:'<color>';inherits:true;initial-value:#8ca3a5;}
+@property --t139{syntax:'<color>';inherits:true;initial-value:#89a0a2;}
+@property --t140{syntax:'<color>';inherits:true;initial-value:#859e9f;}
+@property --t141{syntax:'<color>';inherits:true;initial-value:#829b9d;}
+@property --t142{syntax:'<color>';inherits:true;initial-value:#799996;}
+@property --t143{syntax:'<color>';inherits:true;initial-value:#789a93;}
+@property --t144{syntax:'<color>';inherits:true;initial-value:#a5b9b5;}
+@property --t145{syntax:'<color>';inherits:true;initial-value:#b5c5c0;}
+@property --t146{syntax:'<color>';inherits:true;initial-value:#7b999c;}
+@property --t147{syntax:'<color>';inherits:true;initial-value:#809ea1;}
+@property --t148{syntax:'<color>';inherits:true;initial-value:#87a5a9;}
+@property --t149{syntax:'<color>';inherits:true;initial-value:#81a0a4;}
+@property --t150{syntax:'<color>';inherits:true;initial-value:#7c9b9e;}
+@property --t151{syntax:'<color>';inherits:true;initial-value:#7c989a;}
+@property --t152{syntax:'<color>';inherits:true;initial-value:#7f9b9d;}
+@property --t153{syntax:'<color>';inherits:true;initial-value:#839d9f;}
+@property --t154{syntax:'<color>';inherits:true;initial-value:#819b9c;}
+@property --t155{syntax:'<color>';inherits:true;initial-value:#829a9c;}
+@property --t156{syntax:'<color>';inherits:true;initial-value:#819a9b;}
+@property --t157{syntax:'<color>';inherits:true;initial-value:#829b9c;}
+@property --t158{syntax:'<color>';inherits:true;initial-value:#809a9b;}
+@property --t159{syntax:'<color>';inherits:true;initial-value:#819a9c;}
+@property --t160{syntax:'<color>';inherits:true;initial-value:#81999b;}
+@property --t161{syntax:'<color>';inherits:true;initial-value:#80999b;}
+@property --t162{syntax:'<color>';inherits:true;initial-value:#809a9d;}
+@property --t163{syntax:'<color>';inherits:true;initial-value:#7b9699;}
+@property --t164{syntax:'<color>';inherits:true;initial-value:#748d8d;}
+@property --t165{syntax:'<color>';inherits:true;initial-value:#547977;}
+@property --t166{syntax:'<color>';inherits:true;initial-value:#4f6a6b;}
+@property --t167{syntax:'<color>';inherits:true;initial-value:#446364;}
+@property --t168{syntax:'<color>';inherits:true;initial-value:#345c5f;}
+@property --t169{syntax:'<color>';inherits:true;initial-value:#31575a;}
+@property --t170{syntax:'<color>';inherits:true;initial-value:#2a474d;}
+@property --t171{syntax:'<color>';inherits:true;initial-value:#253f46;}
+@property --t172{syntax:'<color>';inherits:true;initial-value:#243b3b;}
+@property --t173{syntax:'<color>';inherits:true;initial-value:#233a3a;}
+@property --t174{syntax:'<color>';inherits:true;initial-value:#21383a;}
+@property --t175{syntax:'<color>';inherits:true;initial-value:#1a2f42;}
+@property --t176{syntax:'<color>';inherits:true;initial-value:#1a2f40;}
+@property --t177{syntax:'<color>';inherits:true;initial-value:#263e40;}
+@property --t178{syntax:'<color>';inherits:true;initial-value:#27484e;}
+@property --t179{syntax:'<color>';inherits:true;initial-value:#2d4749;}
+@property --t180{syntax:'<color>';inherits:true;initial-value:#31585d;}
+@property --t181{syntax:'<color>';inherits:true;initial-value:#315359;}
+@property --t182{syntax:'<color>';inherits:true;initial-value:#42575a;}
+@property --t183{syntax:'<color>';inherits:true;initial-value:#345b61;}
+@property --t184{syntax:'<color>';inherits:true;initial-value:#3c5b5c;}
+@property --t185{syntax:'<color>';inherits:true;initial-value:#3d6265;}
+@property --t186{syntax:'<color>';inherits:true;initial-value:#436463;}
+@property --t187{syntax:'<color>';inherits:true;initial-value:#4e6264;}
+@property --t188{syntax:'<color>';inherits:true;initial-value:#5f686b;}
+@property --t189{syntax:'<color>';inherits:true;initial-value:#4b6d6d;}
+@property --t190{syntax:'<color>';inherits:true;initial-value:#50686a;}
+@property --t191{syntax:'<color>';inherits:true;initial-value:#636e6f;}
+@property --t192{syntax:'<color>';inherits:true;initial-value:#5c7786;}
+@property --t193{syntax:'<color>';inherits:true;initial-value:#5d7a7c;}
+@property --t194{syntax:'<color>';inherits:true;initial-value:#909294;}
+@property --t195{syntax:'<color>';inherits:true;initial-value:#718e8b;}
+@property --t196{syntax:'<color>';inherits:true;initial-value:#182d3f;}
+@property --t197{syntax:'<color>';inherits:true;initial-value:#1b3041;}
+@property --t198{syntax:'<color>';inherits:true;initial-value:#213848;}
+@property --t199{syntax:'<color>';inherits:true;initial-value:#2e4554;}
+@property --t200{syntax:'<color>';inherits:true;initial-value:#213847;}
+@property --t201{syntax:'<color>';inherits:true;initial-value:#1a3041;}
+@property --t202{syntax:'<color>';inherits:true;initial-value:#192e41;}
+@property --t203{syntax:'<color>';inherits:true;initial-value:#1b3044;}
+@property --t204{syntax:'<color>';inherits:true;initial-value:#182d41;}
+@property --t205{syntax:'<color>';inherits:true;initial-value:#1b3043;}
+@property --t206{syntax:'<color>';inherits:true;initial-value:#182d40;}
+@property --t207{syntax:'<color>';inherits:true;initial-value:#192e42;}
+@property --t208{syntax:'<color>';inherits:true;initial-value:#1a2e43;}
+@property --t209{syntax:'<color>';inherits:true;initial-value:#182c43;}
+@property --t210{syntax:'<color>';inherits:true;initial-value:#1b2f42;}
+@property --t211{syntax:'<color>';inherits:true;initial-value:#192c40;}
+@property --t212{syntax:'<color>';inherits:true;initial-value:#1a2e42;}
+@property --t213{syntax:'<color>';inherits:true;initial-value:#213548;}
+@property --t214{syntax:'<color>';inherits:true;initial-value:#1b2f43;}
+@property --t215{syntax:'<color>';inherits:true;initial-value:#192d41;}
+@property --t216{syntax:'<color>';inherits:true;initial-value:#1a2d41;}
+@property --t217{syntax:'<color>';inherits:true;initial-value:#192d40;}
+@property --t218{syntax:'<color>';inherits:true;initial-value:#1a2e40;}
+@property --t219{syntax:'<color>';inherits:true;initial-value:#172c3d;}
+@property --t220{syntax:'<color>';inherits:true;initial-value:#24394a;}
+@property --t221{syntax:'<color>';inherits:true;initial-value:#1b3040;}
+@property --t222{syntax:'<color>';inherits:true;initial-value:#192e3e;}
+@property --t223{syntax:'<color>';inherits:true;initial-value:#1c3241;}
+@property --t224{syntax:'<color>';inherits:true;initial-value:#213746;}
+@property --t225{syntax:'<color>';inherits:true;initial-value:#1c3141;}
+@property --t226{syntax:'<color>';inherits:true;initial-value:#182c41;}
+@property --t227{syntax:'<color>';inherits:true;initial-value:#1b2e42;}
+@property --t228{syntax:'<color>';inherits:true;initial-value:#23374b;}
+@property --t229{syntax:'<color>';inherits:true;initial-value:#1c3144;}
+@property --t230{syntax:'<color>';inherits:true;initial-value:#172d3e;}
+@property --t231{syntax:'<color>';inherits:true;initial-value:#233c45;}
+@property --t232{syntax:'<color>';inherits:true;initial-value:#334e54;}
+@property --t233{syntax:'<color>';inherits:true;initial-value:#344f58;}
+@property --t234{syntax:'<color>';inherits:true;initial-value:#304b54;}
+@property --t235{syntax:'<color>';inherits:true;initial-value:#213a45;}
+@property --t236{syntax:'<color>';inherits:true;initial-value:#162e3a;}
+@property --t237{syntax:'<color>';inherits:true;initial-value:#1b3341;}
+@property --t238{syntax:'<color>';inherits:true;initial-value:#213948;}
+@property --t239{syntax:'<color>';inherits:true;initial-value:#2f4757;}
+@property --t240{syntax:'<color>';inherits:true;initial-value:#1a313f;}
+@property --t241{syntax:'<color>';inherits:true;initial-value:#192f3d;}
+@property --t242{syntax:'<color>';inherits:true;initial-value:#1c3341;}
+@property --t243{syntax:'<color>';inherits:true;initial-value:#213845;}
+@property --t244{syntax:'<color>';inherits:true;initial-value:#2e4652;}
+@property --t245{syntax:'<color>';inherits:true;initial-value:#354d59;}
+@property --t246{syntax:'<color>';inherits:true;initial-value:#364f59;}
+@property --t247{syntax:'<color>';inherits:true;initial-value:#314b56;}
+@property --t248{syntax:'<color>';inherits:true;initial-value:#2c4752;}
+@property --t249{syntax:'<color>';inherits:true;initial-value:#324e58;}
+@property --t250{syntax:'<color>';inherits:true;initial-value:#36535d;}
+@property --t251{syntax:'<color>';inherits:true;initial-value:#2c4751;}
+@property --t252{syntax:'<color>';inherits:true;initial-value:#203a45;}
+@property --t253{syntax:'<color>';inherits:true;initial-value:#1a333e;}
+@property --t254{syntax:'<color>';inherits:true;initial-value:#243d48;}
+@property --t255{syntax:'<color>';inherits:true;initial-value:#3b545e;}
+@property --t256{syntax:'<color>';inherits:true;initial-value:#324a54;}
+@property --t257{syntax:'<color>';inherits:true;initial-value:#233a44;}
+@property --t258{syntax:'<color>';inherits:true;initial-value:#1c333d;}
+@property --t259{syntax:'<color>';inherits:true;initial-value:#243d44;}
+@property --t260{syntax:'<color>';inherits:true;initial-value:#334e52;}
+@property --t261{syntax:'<color>';inherits:true;initial-value:#3a5659;}
+@property --t262{syntax:'<color>';inherits:true;initial-value:#30494e;}
+@property --t263{syntax:'<color>';inherits:true;initial-value:#253e43;}
+@property --t264{syntax:'<color>';inherits:true;initial-value:#425c5d;}
+@property --t265{syntax:'<color>';inherits:true;initial-value:#4e6164;}
+@property --t266{syntax:'<color>';inherits:true;initial-value:#536468;}
+@property --t267{syntax:'<color>';inherits:true;initial-value:#505f64;}
+@property --t268{syntax:'<color>';inherits:true;initial-value:#485a5d;}
+@property --t269{syntax:'<color>';inherits:true;initial-value:#546166;}
+@property --t270{syntax:'<color>';inherits:true;initial-value:#5b696c;}
+@property --t271{syntax:'<color>';inherits:true;initial-value:#556669;}
+@property --t272{syntax:'<color>';inherits:true;initial-value:#59797a;}
+@property --t273{syntax:'<color>';inherits:true;initial-value:#5b7d83;}
+@property --t274{syntax:'<color>';inherits:true;initial-value:#5c7b7e;}
+@property --t275{syntax:'<color>';inherits:true;initial-value:#628083;}
+@property --t276{syntax:'<color>';inherits:true;initial-value:#658386;}
+@property --t277{syntax:'<color>';inherits:true;initial-value:#6f8d90;}
+@property --t278{syntax:'<color>';inherits:true;initial-value:#6f8f93;}
+@property --t279{syntax:'<color>';inherits:true;initial-value:#638487;}
+@property --t280{syntax:'<color>';inherits:true;initial-value:#5e8083;}
+@property --t281{syntax:'<color>';inherits:true;initial-value:#608285;}
+@property --t282{syntax:'<color>';inherits:true;initial-value:#607e86;}
+@property --t283{syntax:'<color>';inherits:true;initial-value:#607e80;}
+@property --t284{syntax:'<color>';inherits:true;initial-value:#638182;}
+@property --t285{syntax:'<color>';inherits:true;initial-value:#658485;}
+@property --t286{syntax:'<color>';inherits:true;initial-value:#6b8789;}
+@property --t287{syntax:'<color>';inherits:true;initial-value:#658284;}
+@property --t288{syntax:'<color>';inherits:true;initial-value:#617d81;}
+@property --t289{syntax:'<color>';inherits:true;initial-value:#617e83;}
+@property --t290{syntax:'<color>';inherits:true;initial-value:#5c7d80;}
+@property --t291{syntax:'<color>';inherits:true;initial-value:#5f8184;}
+@property --t292{syntax:'<color>';inherits:true;initial-value:#5f8286;}
+@property --t293{syntax:'<color>';inherits:true;initial-value:#607e84;}
+@property --t294{syntax:'<color>';inherits:true;initial-value:#5d7a81;}
+@property --t295{syntax:'<color>';inherits:true;initial-value:#607e85;}
+@property --t296{syntax:'<color>';inherits:true;initial-value:#648489;}
+@property --t297{syntax:'<color>';inherits:true;initial-value:#608084;}
+@property --t298{syntax:'<color>';inherits:true;initial-value:#648387;}
+@property --t299{syntax:'<color>';inherits:true;initial-value:#6f8b8f;}
+@property --t300{syntax:'<color>';inherits:true;initial-value:#6e8a8e;}
+@property --t301{syntax:'<color>';inherits:true;initial-value:#638689;}
+@property --t302{syntax:'<color>';inherits:true;initial-value:#5d8083;}
+@property --t303{syntax:'<color>';inherits:true;initial-value:#587b7e;}
+@property --t304{syntax:'<color>';inherits:true;initial-value:#496c6f;}
+@property --t305{syntax:'<color>';inherits:true;initial-value:#436669;}
+@property --t306{syntax:'<color>';inherits:true;initial-value:#426467;}
+@property --t307{syntax:'<color>';inherits:true;initial-value:#426568;}
+@property --t308{syntax:'<color>';inherits:true;initial-value:#406467;}
+@property --t309{syntax:'<color>';inherits:true;initial-value:#426569;}
+@property --t310{syntax:'<color>';inherits:true;initial-value:#406162;}
+@property --t311{syntax:'<color>';inherits:true;initial-value:#324f51;}
+@property --t312{syntax:'<color>';inherits:true;initial-value:#4e676f;}
+html{--t0:#f6c7a9;--t1:#87a9a7;--t2:#9fbcba;--t3:#afc6c6;--t4:#bbcecb;--t5:#b0c8c4;--t6:#becec8;--t7:#bdccc7;--t8:#b7c7c3;--t9:#abbeba;--t10:#9db2af;--t11:#93aaa9;--t12:#8aa2a3;--t13:#829c9d;--t14:#abc9d4;--t15:#b0c7d1;--t16:#b8c3cb;--t17:#c6c1c3;--t18:#d4bdbb;--t19:#dfbab2;--t20:#eab7ac;--t21:#f1b9aa;--t22:#f1c2b1;--t23:#f5d0bf;--t24:#f5d0bf;--t25:#ece0ce;--t26:#d0d9e5;--t27:#6b7f86;--t28:#21383d;--t29:#a0adb7;--t30:#3c5a5c;--t31:#909ca5;--t32:#b8c5cf;--t33:#7c9492;--t34:#e9eff7;--t35:#d8c0b5;--t36:#597176;--t37:#79889d;--t38:#baabae;--t39:#e4cec4;--t40:#cfafa7;--t41:#789593;--t42:#698595;--t43:#647f8f;--t44:#5a7680;--t45:#526c76;--t46:#22393a;--t47:#c5a8a1;--t48:#bea098;--t49:#b39791;--t50:#a88e87;--t51:#99827c;--t52:#877470;--t53:#716764;--t54:#ffdacb;--t55:#c4a7b0;--t56:#8592ac;--t57:#7f8caa;--t58:#8d97b0;--t59:#7d89a9;--t60:#7483a6;--t61:#8791ad;--t62:#5c718f;--t63:#697c97;--t64:#9299b2;--t65:#657ea3;--t66:#f8f9fb;--t67:#f4f5f8;--t68:#f0f2f6;--t69:#ebeef3;--t70:#e6e9f0;--t71:#dfe4ed;--t72:#d9dee7;--t73:#d2d8e2;--t74:#ccd2dd;--t75:#c4ccd9;--t76:#bbc4d4;--t77:#b3bed0;--t78:#a0aaba;--t79:#abb6c8;--t80:#9aa4b5;--t81:#8b98ad;--t82:#8291ab;--t83:#7d8ea9;--t84:#7b8ca8;--t85:#798aa7;--t86:#7789a4;--t87:#7486a1;--t88:#70819c;--t89:#6a7d99;--t90:#667996;--t91:#647794;--t92:#617592;--t93:#5f7492;--t94:#5e7391;--t95:#5c728f;--t96:#5a708e;--t97:#596f8c;--t98:#556b89;--t99:#596f8f;--t100:#8d91b0;--t101:#858cad;--t102:#7486a7;--t103:#6882a4;--t104:#6781a4;--t105:#6680a3;--t106:#657fa1;--t107:#637e9f;--t108:#799c99;--t109:#779894;--t110:#749390;--t111:#70908e;--t112:#6b8b89;--t113:#658685;--t114:#608281;--t115:#5c7e7d;--t116:#557977;--t117:#537876;--t118:#527674;--t119:#365f62;--t120:#274140;--t121:#537472;--t122:#547979;--t123:#6681a0;--t124:#a8bfbc;--t125:#547472;--t126:#5f7d7a;--t127:#446466;--t128:#3a5b5e;--t129:#72908c;--t130:#284141;--t131:#bdcdc9;--t132:#b3c5c0;--t133:#a4b9b6;--t134:#9db1b0;--t135:#96adac;--t136:#92a9a9;--t137:#8fa6a7;--t138:#8ca3a5;--t139:#89a0a2;--t140:#859e9f;--t141:#829b9d;--t142:#799996;--t143:#789a93;--t144:#a5b9b5;--t145:#b5c5c0;--t146:#7b999c;--t147:#809ea1;--t148:#87a5a9;--t149:#81a0a4;--t150:#7c9b9e;--t151:#7c989a;--t152:#7f9b9d;--t153:#839d9f;--t154:#819b9c;--t155:#829a9c;--t156:#819a9b;--t157:#829b9c;--t158:#809a9b;--t159:#819a9c;--t160:#81999b;--t161:#80999b;--t162:#809a9d;--t163:#7b9699;--t164:#748d8d;--t165:#547977;--t166:#4f6a6b;--t167:#446364;--t168:#345c5f;--t169:#31575a;--t170:#2a474d;--t171:#253f46;--t172:#243b3b;--t173:#233a3a;--t174:#21383a;--t175:#1a2f42;--t176:#1a2f40;--t177:#263e40;--t178:#27484e;--t179:#2d4749;--t180:#31585d;--t181:#315359;--t182:#42575a;--t183:#345b61;--t184:#3c5b5c;--t185:#3d6265;--t186:#436463;--t187:#4e6264;--t188:#5f686b;--t189:#4b6d6d;--t190:#50686a;--t191:#636e6f;--t192:#5c7786;--t193:#5d7a7c;--t194:#909294;--t195:#718e8b;--t196:#182d3f;--t197:#1b3041;--t198:#213848;--t199:#2e4554;--t200:#213847;--t201:#1a3041;--t202:#192e41;--t203:#1b3044;--t204:#182d41;--t205:#1b3043;--t206:#182d40;--t207:#192e42;--t208:#1a2e43;--t209:#182c43;--t210:#1b2f42;--t211:#192c40;--t212:#1a2e42;--t213:#213548;--t214:#1b2f43;--t215:#192d41;--t216:#1a2d41;--t217:#192d40;--t218:#1a2e40;--t219:#172c3d;--t220:#24394a;--t221:#1b3040;--t222:#192e3e;--t223:#1c3241;--t224:#213746;--t225:#1c3141;--t226:#182c41;--t227:#1b2e42;--t228:#23374b;--t229:#1c3144;--t230:#172d3e;--t231:#233c45;--t232:#334e54;--t233:#344f58;--t234:#304b54;--t235:#213a45;--t236:#162e3a;--t237:#1b3341;--t238:#213948;--t239:#2f4757;--t240:#1a313f;--t241:#192f3d;--t242:#1c3341;--t243:#213845;--t244:#2e4652;--t245:#354d59;--t246:#364f59;--t247:#314b56;--t248:#2c4752;--t249:#324e58;--t250:#36535d;--t251:#2c4751;--t252:#203a45;--t253:#1a333e;--t254:#243d48;--t255:#3b545e;--t256:#324a54;--t257:#233a44;--t258:#1c333d;--t259:#243d44;--t260:#334e52;--t261:#3a5659;--t262:#30494e;--t263:#253e43;--t264:#425c5d;--t265:#4e6164;--t266:#536468;--t267:#505f64;--t268:#485a5d;--t269:#546166;--t270:#5b696c;--t271:#556669;--t272:#59797a;--t273:#5b7d83;--t274:#5c7b7e;--t275:#628083;--t276:#658386;--t277:#6f8d90;--t278:#6f8f93;--t279:#638487;--t280:#5e8083;--t281:#608285;--t282:#607e86;--t283:#607e80;--t284:#638182;--t285:#658485;--t286:#6b8789;--t287:#658284;--t288:#617d81;--t289:#617e83;--t290:#5c7d80;--t291:#5f8184;--t292:#5f8286;--t293:#607e84;--t294:#5d7a81;--t295:#607e85;--t296:#648489;--t297:#608084;--t298:#648387;--t299:#6f8b8f;--t300:#6e8a8e;--t301:#638689;--t302:#5d8083;--t303:#587b7e;--t304:#496c6f;--t305:#436669;--t306:#426467;--t307:#426568;--t308:#406467;--t309:#426569;--t310:#406162;--t311:#324f51;--t312:#4e676f;}
+html{transition:--t0 var(--t-sky),--t1 var(--t-sky),--t2 var(--t-sky),--t3 var(--t-sky),--t4 var(--t-sky),--t5 var(--t-sky),--t6 var(--t-sky),--t7 var(--t-sky),--t8 var(--t-sky),--t9 var(--t-sky),--t10 var(--t-sky),--t11 var(--t-sky),--t12 var(--t-sky),--t13 var(--t-sky),--t14 var(--t-sky),--t15 var(--t-sky),--t16 var(--t-sky),--t17 var(--t-sky),--t18 var(--t-sky),--t19 var(--t-sky),--t20 var(--t-sky),--t21 var(--t-sky),--t22 var(--t-sky),--t23 var(--t-sky),--t24 var(--t-sky),--t25 var(--t-sky),--t26 var(--t-sky),--t27 var(--t-sky),--t28 var(--t-sky),--t29 var(--t-sky),--t30 var(--t-sky),--t31 var(--t-sky),--t32 var(--t-sky),--t33 var(--t-sky),--t34 var(--t-sky),--t35 var(--t-sky),--t36 var(--t-sky),--t37 var(--t-sky),--t38 var(--t-sky),--t39 var(--t-sky),--t40 var(--t-sky),--t41 var(--t-sky),--t42 var(--t-sky),--t43 var(--t-sky),--t44 var(--t-sky),--t45 var(--t-sky),--t46 var(--t-sky),--t47 var(--t-sky),--t48 var(--t-sky),--t49 var(--t-sky),--t50 var(--t-sky),--t51 var(--t-sky),--t52 var(--t-sky),--t53 var(--t-sky),--t54 var(--t-sky),--t55 var(--t-sky),--t56 var(--t-sky),--t57 var(--t-sky),--t58 var(--t-sky),--t59 var(--t-sky),--t60 var(--t-sky),--t61 var(--t-sky),--t62 var(--t-sky),--t63 var(--t-sky),--t64 var(--t-sky),--t65 var(--t-sky),--t66 var(--t-sky),--t67 var(--t-sky),--t68 var(--t-sky),--t69 var(--t-sky),--t70 var(--t-sky),--t71 var(--t-sky),--t72 var(--t-sky),--t73 var(--t-sky),--t74 var(--t-sky),--t75 var(--t-sky),--t76 var(--t-sky),--t77 var(--t-sky),--t78 var(--t-sky),--t79 var(--t-sky),--t80 var(--t-sky),--t81 var(--t-sky),--t82 var(--t-sky),--t83 var(--t-sky),--t84 var(--t-sky),--t85 var(--t-sky),--t86 var(--t-sky),--t87 var(--t-sky),--t88 var(--t-sky),--t89 var(--t-sky),--t90 var(--t-sky),--t91 var(--t-sky),--t92 var(--t-sky),--t93 var(--t-sky),--t94 var(--t-sky),--t95 var(--t-sky),--t96 var(--t-sky),--t97 var(--t-sky),--t98 var(--t-sky),--t99 var(--t-sky),--t100 var(--t-sky),--t101 var(--t-sky),--t102 var(--t-sky),--t103 var(--t-sky),--t104 var(--t-sky),--t105 var(--t-sky),--t106 var(--t-sky),--t107 var(--t-sky),--t108 var(--t-sky),--t109 var(--t-sky),--t110 var(--t-sky),--t111 var(--t-sky),--t112 var(--t-sky),--t113 var(--t-sky),--t114 var(--t-sky),--t115 var(--t-sky),--t116 var(--t-sky),--t117 var(--t-sky),--t118 var(--t-sky),--t119 var(--t-sky),--t120 var(--t-sky),--t121 var(--t-sky),--t122 var(--t-sky),--t123 var(--t-sky),--t124 var(--t-sky),--t125 var(--t-sky),--t126 var(--t-sky),--t127 var(--t-sky),--t128 var(--t-sky),--t129 var(--t-sky),--t130 var(--t-sky),--t131 var(--t-sky),--t132 var(--t-sky),--t133 var(--t-sky),--t134 var(--t-sky),--t135 var(--t-sky),--t136 var(--t-sky),--t137 var(--t-sky),--t138 var(--t-sky),--t139 var(--t-sky),--t140 var(--t-sky),--t141 var(--t-sky),--t142 var(--t-sky),--t143 var(--t-sky),--t144 var(--t-sky),--t145 var(--t-sky),--t146 var(--t-sky),--t147 var(--t-sky),--t148 var(--t-sky),--t149 var(--t-sky),--t150 var(--t-sky),--t151 var(--t-sky),--t152 var(--t-sky),--t153 var(--t-sky),--t154 var(--t-sky),--t155 var(--t-sky),--t156 var(--t-sky),--t157 var(--t-sky),--t158 var(--t-sky),--t159 var(--t-sky),--t160 var(--t-sky),--t161 var(--t-sky),--t162 var(--t-sky),--t163 var(--t-sky),--t164 var(--t-sky),--t165 var(--t-sky),--t166 var(--t-sky),--t167 var(--t-sky),--t168 var(--t-sky),--t169 var(--t-sky),--t170 var(--t-sky),--t171 var(--t-sky),--t172 var(--t-sky),--t173 var(--t-sky),--t174 var(--t-sky),--t175 var(--t-sky),--t176 var(--t-sky),--t177 var(--t-sky),--t178 var(--t-sky),--t179 var(--t-sky),--t180 var(--t-sky),--t181 var(--t-sky),--t182 var(--t-sky),--t183 var(--t-sky),--t184 var(--t-sky),--t185 var(--t-sky),--t186 var(--t-sky),--t187 var(--t-sky),--t188 var(--t-sky),--t189 var(--t-sky),--t190 var(--t-sky),--t191 var(--t-sky),--t192 var(--t-sky),--t193 var(--t-sky),--t194 var(--t-sky),--t195 var(--t-sky),--t196 var(--t-sky),--t197 var(--t-sky),--t198 var(--t-sky),--t199 var(--t-sky),--t200 var(--t-sky),--t201 var(--t-sky),--t202 var(--t-sky),--t203 var(--t-sky),--t204 var(--t-sky),--t205 var(--t-sky),--t206 var(--t-sky),--t207 var(--t-sky),--t208 var(--t-sky),--t209 var(--t-sky),--t210 var(--t-sky),--t211 var(--t-sky),--t212 var(--t-sky),--t213 var(--t-sky),--t214 var(--t-sky),--t215 var(--t-sky),--t216 var(--t-sky),--t217 var(--t-sky),--t218 var(--t-sky),--t219 var(--t-sky),--t220 var(--t-sky),--t221 var(--t-sky),--t222 var(--t-sky),--t223 var(--t-sky),--t224 var(--t-sky),--t225 var(--t-sky),--t226 var(--t-sky),--t227 var(--t-sky),--t228 var(--t-sky),--t229 var(--t-sky),--t230 var(--t-sky),--t231 var(--t-sky),--t232 var(--t-sky),--t233 var(--t-sky),--t234 var(--t-sky),--t235 var(--t-sky),--t236 var(--t-sky),--t237 var(--t-sky),--t238 var(--t-sky),--t239 var(--t-sky),--t240 var(--t-sky),--t241 var(--t-sky),--t242 var(--t-sky),--t243 var(--t-sky),--t244 var(--t-sky),--t245 var(--t-sky),--t246 var(--t-sky),--t247 var(--t-sky),--t248 var(--t-sky),--t249 var(--t-sky),--t250 var(--t-sky),--t251 var(--t-sky),--t252 var(--t-sky),--t253 var(--t-sky),--t254 var(--t-sky),--t255 var(--t-sky),--t256 var(--t-sky),--t257 var(--t-sky),--t258 var(--t-sky),--t259 var(--t-sky),--t260 var(--t-sky),--t261 var(--t-sky),--t262 var(--t-sky),--t263 var(--t-sky),--t264 var(--t-sky),--t265 var(--t-sky),--t266 var(--t-sky),--t267 var(--t-sky),--t268 var(--t-sky),--t269 var(--t-sky),--t270 var(--t-sky),--t271 var(--t-sky),--t272 var(--t-sky),--t273 var(--t-sky),--t274 var(--t-sky),--t275 var(--t-sky),--t276 var(--t-sky),--t277 var(--t-sky),--t278 var(--t-sky),--t279 var(--t-sky),--t280 var(--t-sky),--t281 var(--t-sky),--t282 var(--t-sky),--t283 var(--t-sky),--t284 var(--t-sky),--t285 var(--t-sky),--t286 var(--t-sky),--t287 var(--t-sky),--t288 var(--t-sky),--t289 var(--t-sky),--t290 var(--t-sky),--t291 var(--t-sky),--t292 var(--t-sky),--t293 var(--t-sky),--t294 var(--t-sky),--t295 var(--t-sky),--t296 var(--t-sky),--t297 var(--t-sky),--t298 var(--t-sky),--t299 var(--t-sky),--t300 var(--t-sky),--t301 var(--t-sky),--t302 var(--t-sky),--t303 var(--t-sky),--t304 var(--t-sky),--t305 var(--t-sky),--t306 var(--t-sky),--t307 var(--t-sky),--t308 var(--t-sky),--t309 var(--t-sky),--t310 var(--t-sky),--t311 var(--t-sky),--t312 var(--t-sky);}
+html[data-time="day"]{--t0:#fdf6dc;--t1:#7a94a1;--t2:#92aab6;--t3:#9bb2bd;--t4:#9fb6c1;--t5:#9bb3be;--t6:#9fb6c1;--t7:#9fb5c1;--t8:#9eb5c0;--t9:#99b1bc;--t10:#869fab;--t11:#8099a6;--t12:#76919f;--t13:#718c9a;--t14:#71aae2;--t15:#76ace3;--t16:#7eb3e5;--t17:#87b9e6;--t18:#91bfe8;--t19:#9dc7e9;--t20:#a6ceea;--t21:#b0d4eb;--t22:#bad9ea;--t23:#c3dfec;--t24:#c3dfec;--t25:#98b4cc;--t26:#d4dae2;--t27:#4e6145;--t28:#162417;--t29:#bfc7d1;--t30:#273d21;--t31:#75909e;--t32:#c2cad4;--t33:#5d795a;--t34:#eaeef4;--t35:#9fb5c1;--t36:#375330;--t37:#94a0af;--t38:#96b2ca;--t39:#d1d7e0;--t40:#98b4cc;--t41:#5c785b;--t42:#929fae;--t43:#4e6044;--t44:#3f5736;--t45:#3f544e;--t46:#162417;--t47:#7da5b1;--t48:#779ea9;--t49:#7195a0;--t50:#6a8c96;--t51:#618089;--t52:#56727a;--t53:#4b636a;--t54:#e5ecf4;--t55:#96b2ca;--t56:#909dae;--t57:#7a8e99;--t58:#919fb0;--t59:#748795;--t60:#687e87;--t61:#8c9aaa;--t62:#506874;--t63:#5d7580;--t64:#919faf;--t65:#5e7580;--t66:#edf0f7;--t67:#eceef5;--t68:#ebeef4;--t69:#eaeef4;--t70:#eaecf3;--t71:#dfe4eb;--t72:#d8dee6;--t73:#d3dae2;--t74:#d0d6de;--t75:#c7cfd9;--t76:#c3cbd5;--t77:#bfc8d1;--t78:#bfc7d1;--t79:#95a1b0;--t80:#95a1b0;--t81:#95a1b0;--t82:#95a1af;--t83:#95a1af;--t84:#94a1af;--t85:#94a0af;--t86:#94a0af;--t87:#93a0af;--t88:#929fae;--t89:#8896a4;--t90:#7f8f9d;--t91:#7c8b9b;--t92:#78879a;--t93:#778799;--t94:#778699;--t95:#778698;--t96:#768597;--t97:#768597;--t98:#768597;--t99:#768597;--t100:#6b818b;--t101:#667d86;--t102:#5e777f;--t103:#4b676d;--t104:#49656a;--t105:#49656a;--t106:#486469;--t107:#486369;--t108:#6a8970;--t109:#5f7b5a;--t110:#58765f;--t111:#55725f;--t112:#526e51;--t113:#486547;--t114:#446141;--t115:#3f5c3e;--t116:#3a5736;--t117:#395535;--t118:#375433;--t119:#1f3a20;--t120:#1f3920;--t121:#365332;--t122:#3a5636;--t123:#496649;--t124:#6e8e75;--t125:#3d5734;--t126:#56723c;--t127:#314926;--t128:#283e21;--t129:#5e7c47;--t130:#263c1e;--t131:#9fb5c1;--t132:#9bb2bd;--t133:#90a9b4;--t134:#869eab;--t135:#829ba8;--t136:#7f98a4;--t137:#7a94a1;--t138:#7892a0;--t139:#75909d;--t140:#728d9b;--t141:#718b99;--t142:#6e8893;--t143:#6e8893;--t144:#90a9b4;--t145:#9bb2be;--t146:#6e8893;--t147:#728c9b;--t148:#7892a0;--t149:#738e9c;--t150:#6f8893;--t151:#6e8893;--t152:#6f8894;--t153:#728c9b;--t154:#6f8894;--t155:#6f8894;--t156:#6f8894;--t157:#708a96;--t158:#6f8893;--t159:#6f8894;--t160:#6f8893;--t161:#6f8893;--t162:#6f8894;--t163:#6e8893;--t164:#516849;--t165:#375431;--t166:#354e2e;--t167:#2f4226;--t168:#203920;--t169:#1e361e;--t170:#1f311d;--t171:#192c19;--t172:#162417;--t173:#162417;--t174:#162417;--t175:#152316;--t176:#152315;--t177:#182a18;--t178:#1f301d;--t179:#1f311d;--t180:#1e371e;--t181:#1d351e;--t182:#213a20;--t183:#1f3920;--t184:#273d22;--t185:#2e4125;--t186:#2f4227;--t187:#304428;--t188:#365130;--t189:#354f2f;--t190:#344c2d;--t191:#375330;--t192:#495c41;--t193:#4a5c41;--t194:#546d4c;--t195:#516749;--t196:#142314;--t197:#162417;--t198:#162417;--t199:#1f311d;--t200:#162417;--t201:#162416;--t202:#142315;--t203:#162417;--t204:#142315;--t205:#162417;--t206:#142314;--t207:#142315;--t208:#152315;--t209:#142214;--t210:#162416;--t211:#142214;--t212:#152315;--t213:#162417;--t214:#162416;--t215:#142315;--t216:#142315;--t217:#142315;--t218:#152315;--t219:#142214;--t220:#172518;--t221:#162417;--t222:#142315;--t223:#162417;--t224:#162417;--t225:#162417;--t226:#142214;--t227:#152315;--t228:#162417;--t229:#162417;--t230:#142214;--t231:#172718;--t232:#1e341d;--t233:#1e351d;--t234:#1f321d;--t235:#162417;--t236:#142214;--t237:#162417;--t238:#162417;--t239:#1f321d;--t240:#162417;--t241:#142315;--t242:#162417;--t243:#162417;--t244:#1f311d;--t245:#1e341d;--t246:#1e351d;--t247:#1f331d;--t248:#1f311d;--t249:#1e341d;--t250:#1e361e;--t251:#1f311d;--t252:#162417;--t253:#162417;--t254:#172918;--t255:#1e371f;--t256:#1f321d;--t257:#172518;--t258:#162417;--t259:#172918;--t260:#1e341d;--t261:#1e381f;--t262:#1f321d;--t263:#182a18;--t264:#2b3f24;--t265:#304328;--t266:#32482a;--t267:#304327;--t268:#2c4024;--t269:#314529;--t270:#365130;--t271:#344c2d;--t272:#45593d;--t273:#4b5d42;--t274:#4a5d42;--t275:#4d5f44;--t276:#4e6145;--t277:#516748;--t278:#516849;--t279:#4e6145;--t280:#4c5e43;--t281:#4d6044;--t282:#4c5e43;--t283:#4c5e43;--t284:#4d6044;--t285:#4e6145;--t286:#506346;--t287:#4e6145;--t288:#4c5e43;--t289:#4c5e43;--t290:#4b5d42;--t291:#4d5f44;--t292:#4d6044;--t293:#4c5e43;--t294:#4a5d42;--t295:#4c5e43;--t296:#4e6145;--t297:#4d5f43;--t298:#4e6145;--t299:#516648;--t300:#506548;--t301:#4f6245;--t302:#4c5e43;--t303:#495c41;--t304:#354e2e;--t305:#304328;--t306:#2f4227;--t307:#304327;--t308:#2f4226;--t309:#304327;--t310:#2e4125;--t311:#1e341d;--t312:#3c514a;}
+html[data-time="dusk"]{--t0:#895c79;--t1:#9a7489;--t2:#d49ba4;--t3:#daa3aa;--t4:#dea8ae;--t5:#dba4aa;--t6:#dea8ae;--t7:#dea8ae;--t8:#dda6ac;--t9:#daa2a9;--t10:#c28994;--t11:#a87b8b;--t12:#8e6e87;--t13:#7d6782;--t14:#5d4972;--t15:#624b74;--t16:#6e5177;--t17:#7d5779;--t18:#8c5d78;--t19:#9f6478;--t20:#b26c78;--t21:#c5767b;--t22:#ce817d;--t23:#e2a395;--t24:#e2a395;--t25:#dd9e88;--t26:#a57f96;--t27:#3f3945;--t28:#0e101c;--t29:#76678d;--t30:#17151c;--t31:#8b6d86;--t32:#78698f;--t33:#2d3545;--t34:#c78c90;--t35:#dea8ae;--t36:#212b3d;--t37:#4d4363;--t38:#b2706e;--t39:#947892;--t40:#dd9e88;--t41:#2d3545;--t42:#4c4360;--t43:#3e3845;--t44:#303243;--t45:#282831;--t46:#0e101c;--t47:#94607b;--t48:#8d5c75;--t49:#86566f;--t50:#7d5168;--t51:#734a5f;--t52:#664254;--t53:#593a4a;--t54:#dea290;--t55:#b5726e;--t56:#5f4c6f;--t57:#443f66;--t58:#8c5a63;--t59:#493d57;--t60:#343458;--t61:#504360;--t62:#2a2b44;--t63:#2f2e49;--t64:#7a5262;--t65:#2f2f49;--t66:#e69f8b;--t67:#d3928d;--t68:#ce8f8e;--t69:#c78c90;--t70:#be8892;--t71:#b78694;--t72:#b38394;--t73:#a37f96;--t74:#8d7595;--t75:#837095;--t76:#796990;--t77:#76678d;--t78:#76678d;--t79:#4c4563;--t80:#4c4563;--t81:#4c4563;--t82:#4c4562;--t83:#4c4562;--t84:#4c4562;--t85:#4d4563;--t86:#4d4363;--t87:#4d4362;--t88:#4c4361;--t89:#4a4261;--t90:#434060;--t91:#393b60;--t92:#37395e;--t93:#37395e;--t94:#36385d;--t95:#35385c;--t96:#34375c;--t97:#34375c;--t98:#34375c;--t99:#34375c;--t100:#403952;--t101:#3d3750;--t102:#3c3650;--t103:#2d2b3a;--t104:#212538;--t105:#222439;--t106:#202437;--t107:#202337;--t108:#373a47;--t109:#2d3645;--t110:#2c3545;--t111:#2b323f;--t112:#28303e;--t113:#252c3b;--t114:#232a3a;--t115:#212838;--t116:#1f2736;--t117:#1d2436;--t118:#1c2332;--t119:#141d2f;--t120:#141c2f;--t121:#1c2230;--t122:#1e2636;--t123:#262c3c;--t124:#3b3d4a;--t125:#211f26;--t126:#302a30;--t127:#1d1b22;--t128:#17161d;--t129:#2d3442;--t130:#16141b;--t131:#dea8ae;--t132:#daa3aa;--t133:#d199a1;--t134:#c08893;--t135:#af7f8e;--t136:#a4798b;--t137:#9b7589;--t138:#917087;--t139:#8a6d86;--t140:#836a83;--t141:#7d6781;--t142:#7a6681;--t143:#7a6681;--t144:#d199a1;--t145:#daa3aa;--t146:#7b6681;--t147:#816983;--t148:#947189;--t149:#866b85;--t150:#7b6681;--t151:#7b6681;--t152:#7b6681;--t153:#816983;--t154:#7b6681;--t155:#7b6681;--t156:#7b6681;--t157:#7c6681;--t158:#7b6681;--t159:#7b6681;--t160:#7b6681;--t161:#7b6681;--t162:#7b6681;--t163:#7a6681;--t164:#433b46;--t165:#232e45;--t166:#1f2637;--t167:#1c2233;--t168:#141e33;--t169:#131c30;--t170:#111827;--t171:#101523;--t172:#0e101d;--t173:#0e101c;--t174:#0e101c;--t175:#0d0f1b;--t176:#0d0f1b;--t177:#0f1423;--t178:#111727;--t179:#111828;--t180:#141d31;--t181:#131b2d;--t182:#151e33;--t183:#141e34;--t184:#181f32;--t185:#1b2132;--t186:#1c2233;--t187:#1d2333;--t188:#202739;--t189:#1f2637;--t190:#1e2536;--t191:#212b3e;--t192:#393544;--t193:#3a3644;--t194:#473c48;--t195:#433b46;--t196:#0d0e1b;--t197:#0e0f1e;--t198:#0e101c;--t199:#121828;--t200:#0e101c;--t201:#0e0f1e;--t202:#0d0f1b;--t203:#0e0f1f;--t204:#0d0e1b;--t205:#0e0f1f;--t206:#0d0e1b;--t207:#0d0f1b;--t208:#0d0f1b;--t209:#0d0e1b;--t210:#0e0f1e;--t211:#0d0e1b;--t212:#0d0f1b;--t213:#0e0f20;--t214:#0e0f1e;--t215:#0d0e1b;--t216:#0d0f1b;--t217:#0d0e1b;--t218:#0d0f1b;--t219:#0d0e1c;--t220:#0f1220;--t221:#0e0f1e;--t222:#0d0f1b;--t223:#0e0f20;--t224:#0e101c;--t225:#0e0f20;--t226:#0d0e1b;--t227:#0d0f1b;--t228:#0e101c;--t229:#0e0f20;--t230:#0d0e1b;--t231:#101322;--t232:#131a2b;--t233:#131b2c;--t234:#12192a;--t235:#0e101d;--t236:#0d0e1c;--t237:#0e0f20;--t238:#0e101c;--t239:#121829;--t240:#0e0f1f;--t241:#0d0f1b;--t242:#0e0f20;--t243:#0e101c;--t244:#121828;--t245:#131b2c;--t246:#131b2c;--t247:#12192a;--t248:#121828;--t249:#131a2b;--t250:#131c2f;--t251:#121828;--t252:#0e101c;--t253:#0e0f20;--t254:#0f1422;--t255:#141d32;--t256:#12192a;--t257:#0f111e;--t258:#0e0f20;--t259:#101422;--t260:#131a2b;--t261:#141d33;--t262:#121929;--t263:#0f1423;--t264:#1a2032;--t265:#1c2333;--t266:#1e2435;--t267:#1c2333;--t268:#1a2032;--t269:#1d2434;--t270:#202738;--t271:#1e2536;--t272:#353444;--t273:#3b3645;--t274:#3b3644;--t275:#3d3845;--t276:#3f3945;--t277:#433b46;--t278:#433b46;--t279:#3f3945;--t280:#3c3745;--t281:#3e3845;--t282:#3c3745;--t283:#3c3745;--t284:#3e3845;--t285:#3f3945;--t286:#413a46;--t287:#3e3845;--t288:#3c3745;--t289:#3c3745;--t290:#3b3644;--t291:#3d3845;--t292:#3e3845;--t293:#3c3745;--t294:#3b3644;--t295:#3c3745;--t296:#3f3945;--t297:#3d3745;--t298:#3f3945;--t299:#423a46;--t300:#423a46;--t301:#3f3945;--t302:#3c3745;--t303:#3a3544;--t304:#1f2537;--t305:#1c2333;--t306:#1c2233;--t307:#1c2233;--t308:#1c2233;--t309:#1c2333;--t310:#1b2132;--t311:#131a2b;--t312:#25262f;}
+html[data-time="night"]{--t0:#859fb9;--t1:#0d1a2f;--t2:#0d1b30;--t3:#0f1b30;--t4:#0f1b30;--t5:#0f1b30;--t6:#0f1b30;--t7:#0f1b30;--t8:#0f1b30;--t9:#0f1b30;--t10:#0d1b2f;--t11:#0e1a2f;--t12:#0c192e;--t13:#091428;--t14:#071538;--t15:#09163c;--t16:#0b1c44;--t17:#0f234b;--t18:#112853;--t19:#15305b;--t20:#1c3566;--t21:#244171;--t22:#30517d;--t23:#3a6089;--t24:#3a6089;--t25:#2b5077;--t26:#7994b4;--t27:#1d354e;--t28:#08101e;--t29:#6f8aaa;--t30:#0d1f37;--t31:#0c192e;--t32:#718cac;--t33:#223c57;--t34:#7c98b7;--t35:#0f1b30;--t36:#182e47;--t37:#374e6e;--t38:#2a4f77;--t39:#7893b3;--t40:#2b5077;--t41:#213c56;--t42:#344d6f;--t43:#1d354e;--t44:#1a314a;--t45:#1a304e;--t46:#08101e;--t47:#1e3b63;--t48:#1d395f;--t49:#1b365a;--t50:#1a3254;--t51:#172e4d;--t52:#152945;--t53:#12243c;--t54:#809abc;--t55:#2a4f77;--t56:#2d4568;--t57:#2b4366;--t58:#2c4a70;--t59:#283f5f;--t60:#23395a;--t61:#2e4567;--t62:#203656;--t63:#223859;--t64:#314869;--t65:#223858;--t66:#86a2c0;--t67:#819dba;--t68:#7f9ab9;--t69:#7c98b7;--t70:#7a96b6;--t71:#7996b5;--t72:#7896b5;--t73:#7994b4;--t74:#7792b2;--t75:#7590af;--t76:#728dad;--t77:#6f8aaa;--t78:#6f8aaa;--t79:#385071;--t80:#385071;--t81:#385071;--t82:#385071;--t83:#384f70;--t84:#384f6f;--t85:#384f6e;--t86:#374e6e;--t87:#374e6e;--t88:#354d6e;--t89:#334b6e;--t90:#32496b;--t91:#2e4663;--t92:#2b4362;--t93:#2a4262;--t94:#294060;--t95:#294060;--t96:#283f5f;--t97:#283f5f;--t98:#283f5f;--t99:#283f5f;--t100:#284164;--t101:#273f62;--t102:#273f62;--t103:#263e5f;--t104:#192f4d;--t105:#1a2e4d;--t106:#192e4d;--t107:#182d4d;--t108:#26415a;--t109:#223d57;--t110:#213c56;--t111:#1f3852;--t112:#1e3752;--t113:#1b334c;--t114:#19314a;--t115:#182f48;--t116:#172d46;--t117:#152b44;--t118:#152a43;--t119:#0e2239;--t120:#0e2139;--t121:#152a43;--t122:#162d45;--t123:#1b344d;--t124:#29445d;--t125:#152a43;--t126:#1c344c;--t127:#12263f;--t128:#0d1f38;--t129:#203a54;--t130:#0c1e36;--t131:#0f1b30;--t132:#0f1b30;--t133:#0d1b2f;--t134:#0d1b2f;--t135:#0e1a2f;--t136:#0e1a2e;--t137:#0d1a2f;--t138:#0d192e;--t139:#0c192e;--t140:#0b172c;--t141:#081328;--t142:#081227;--t143:#081227;--t144:#0d1b2f;--t145:#0f1b30;--t146:#081227;--t147:#0a162b;--t148:#0c1a2e;--t149:#0c182e;--t150:#081227;--t151:#081227;--t152:#081327;--t153:#0a162b;--t154:#081327;--t155:#081327;--t156:#081327;--t157:#081328;--t158:#081227;--t159:#081327;--t160:#081227;--t161:#081227;--t162:#081327;--t163:#081227;--t164:#1f3750;--t165:#182f49;--t166:#162b43;--t167:#14263d;--t168:#0f223a;--t169:#0e2038;--t170:#0b1c31;--t171:#0a1628;--t172:#08101e;--t173:#08101e;--t174:#08101e;--t175:#080f1e;--t176:#080f1e;--t177:#0a1527;--t178:#0b1c30;--t179:#0b1c31;--t180:#0f2139;--t181:#0d2037;--t182:#10233a;--t183:#0f223a;--t184:#10233b;--t185:#13253c;--t186:#14263d;--t187:#15273e;--t188:#172d45;--t189:#172c43;--t190:#162a42;--t191:#182e47;--t192:#1c334c;--t193:#1c334c;--t194:#213952;--t195:#1f3750;--t196:#070e1e;--t197:#08101e;--t198:#08101e;--t199:#0c1c31;--t200:#08101e;--t201:#08101e;--t202:#070f1e;--t203:#08101e;--t204:#070e1e;--t205:#08101e;--t206:#070e1e;--t207:#070f1e;--t208:#070f1f;--t209:#070e1e;--t210:#08101e;--t211:#070e1e;--t212:#070f1e;--t213:#08101e;--t214:#08101e;--t215:#070e1e;--t216:#070e1e;--t217:#070e1e;--t218:#070f1e;--t219:#070e1e;--t220:#0a1223;--t221:#08101e;--t222:#070e1e;--t223:#08101e;--t224:#08101e;--t225:#08101e;--t226:#070e1e;--t227:#070f1e;--t228:#08101e;--t229:#08101e;--t230:#070e1e;--t231:#0a1426;--t232:#0d1e35;--t233:#0d1f36;--t234:#0c1d34;--t235:#08101e;--t236:#070e1e;--t237:#08101e;--t238:#08101e;--t239:#0c1d32;--t240:#08101e;--t241:#070f1e;--t242:#08101e;--t243:#08101e;--t244:#0c1c32;--t245:#0d1f35;--t246:#0d1f36;--t247:#0c1e34;--t248:#0c1c32;--t249:#0d1f35;--t250:#0e2038;--t251:#0c1c32;--t252:#08101e;--t253:#08101e;--t254:#0a1527;--t255:#0f2139;--t256:#0c1d34;--t257:#0a1122;--t258:#08101e;--t259:#0a1527;--t260:#0d1e34;--t261:#0f2139;--t262:#0c1d33;--t263:#0a1527;--t264:#12243b;--t265:#14273e;--t266:#162940;--t267:#14273e;--t268:#12243b;--t269:#15283f;--t270:#172d44;--t271:#162b42;--t272:#1b324b;--t273:#1d344d;--t274:#1c334d;--t275:#1d354d;--t276:#1e354e;--t277:#1f3750;--t278:#1f3750;--t279:#1e354e;--t280:#1d344d;--t281:#1d354e;--t282:#1d344d;--t283:#1d344d;--t284:#1d354e;--t285:#1e354e;--t286:#1e364f;--t287:#1d354e;--t288:#1d344d;--t289:#1d344d;--t290:#1d344d;--t291:#1d354d;--t292:#1d354e;--t293:#1d344d;--t294:#1c344d;--t295:#1d344d;--t296:#1e354e;--t297:#1d344d;--t298:#1e354e;--t299:#1f374f;--t300:#1f374f;--t301:#1e364e;--t302:#1d344d;--t303:#1c334c;--t304:#162b42;--t305:#14273e;--t306:#14263d;--t307:#14263e;--t308:#14263d;--t309:#14273e;--t310:#13253c;--t311:#0d1e35;--t312:#192f4c;}
+.g0{stop-color:var(--t0);}
+.g1{stop-color:var(--t1);}
+.g2{stop-color:var(--t2);}
+.g3{stop-color:var(--t3);}
+.g4{stop-color:var(--t4);}
+.g5{stop-color:var(--t5);}
+.g6{stop-color:var(--t6);}
+.g7{stop-color:var(--t7);}
+.g8{stop-color:var(--t8);}
+.g9{stop-color:var(--t9);}
+.g10{stop-color:var(--t10);}
+.g11{stop-color:var(--t11);}
+.g12{stop-color:var(--t12);}
+.f13{fill:var(--t13);}
+.g13{stop-color:var(--t13);}
+.g14{stop-color:var(--t14);}
+.g15{stop-color:var(--t15);}
+.g16{stop-color:var(--t16);}
+.g17{stop-color:var(--t17);}
+.g18{stop-color:var(--t18);}
+.g19{stop-color:var(--t19);}
+.g20{stop-color:var(--t20);}
+.g21{stop-color:var(--t21);}
+.g22{stop-color:var(--t22);}
+.g23{stop-color:var(--t23);}
+.g24{stop-color:var(--t24);}
+.g25{stop-color:var(--t25);}
+.f26{fill:var(--t26);}
+.f27{fill:var(--t27);}
+.f28{fill:var(--t28);}
+.f29{fill:var(--t29);}
+.f30{fill:var(--t30);}
+.f31{fill:var(--t31);}
+.f32{fill:var(--t32);}
+.f33{fill:var(--t33);}
+.f34{fill:var(--t34);}
+.f35{fill:var(--t35);}
+.f36{fill:var(--t36);}
+.f37{fill:var(--t37);}
+.f38{fill:var(--t38);}
+.f39{fill:var(--t39);}
+.f40{fill:var(--t40);}
+.s40{stroke:var(--t40);}
+.f41{fill:var(--t41);}
+.s41{stroke:var(--t41);}
+.f42{fill:var(--t42);}
+.s42{stroke:var(--t42);}
+.f43{fill:var(--t43);}
+.s43{stroke:var(--t43);}
+.f44{fill:var(--t44);}
+.s44{stroke:var(--t44);}
+.f45{fill:var(--t45);}
+.s45{stroke:var(--t45);}
+.f46{fill:var(--t46);}
+.s46{stroke:var(--t46);}
+.f47{fill:var(--t47);}
+.s47{stroke:var(--t47);}
+.f48{fill:var(--t48);}
+.s48{stroke:var(--t48);}
+.f49{fill:var(--t49);}
+.s49{stroke:var(--t49);}
+.f50{fill:var(--t50);}
+.s50{stroke:var(--t50);}
+.f51{fill:var(--t51);}
+.s51{stroke:var(--t51);}
+.f52{fill:var(--t52);}
+.s52{stroke:var(--t52);}
+.f53{fill:var(--t53);}
+.s53{stroke:var(--t53);}
+.s54{stroke:var(--t54);}
+.f55{fill:var(--t55);}
+.f56{fill:var(--t56);}
+.f57{fill:var(--t57);}
+.f58{fill:var(--t58);}
+.f59{fill:var(--t59);}
+.f60{fill:var(--t60);}
+.f61{fill:var(--t61);}
+.f62{fill:var(--t62);}
+.f63{fill:var(--t63);}
+.f64{fill:var(--t64);}
+.f65{fill:var(--t65);}
+.f66{fill:var(--t66);}
+.f67{fill:var(--t67);}
+.s67{stroke:var(--t67);}
+.f68{fill:var(--t68);}
+.s68{stroke:var(--t68);}
+.f69{fill:var(--t69);}
+.s69{stroke:var(--t69);}
+.f70{fill:var(--t70);}
+.s70{stroke:var(--t70);}
+.f71{fill:var(--t71);}
+.s71{stroke:var(--t71);}
+.f72{fill:var(--t72);}
+.s72{stroke:var(--t72);}
+.f73{fill:var(--t73);}
+.s73{stroke:var(--t73);}
+.f74{fill:var(--t74);}
+.s74{stroke:var(--t74);}
+.f75{fill:var(--t75);}
+.s75{stroke:var(--t75);}
+.f76{fill:var(--t76);}
+.s76{stroke:var(--t76);}
+.f77{fill:var(--t77);}
+.s77{stroke:var(--t77);}
+.f78{fill:var(--t78);}
+.s78{stroke:var(--t78);}
+.f79{fill:var(--t79);}
+.s79{stroke:var(--t79);}
+.f80{fill:var(--t80);}
+.s80{stroke:var(--t80);}
+.f81{fill:var(--t81);}
+.s81{stroke:var(--t81);}
+.f82{fill:var(--t82);}
+.s82{stroke:var(--t82);}
+.f83{fill:var(--t83);}
+.s83{stroke:var(--t83);}
+.f84{fill:var(--t84);}
+.s84{stroke:var(--t84);}
+.f85{fill:var(--t85);}
+.s85{stroke:var(--t85);}
+.f86{fill:var(--t86);}
+.s86{stroke:var(--t86);}
+.f87{fill:var(--t87);}
+.s87{stroke:var(--t87);}
+.f88{fill:var(--t88);}
+.s88{stroke:var(--t88);}
+.f89{fill:var(--t89);}
+.s89{stroke:var(--t89);}
+.f90{fill:var(--t90);}
+.s90{stroke:var(--t90);}
+.f91{fill:var(--t91);}
+.s91{stroke:var(--t91);}
+.f92{fill:var(--t92);}
+.s92{stroke:var(--t92);}
+.f93{fill:var(--t93);}
+.s93{stroke:var(--t93);}
+.f94{fill:var(--t94);}
+.s94{stroke:var(--t94);}
+.f95{fill:var(--t95);}
+.s95{stroke:var(--t95);}
+.f96{fill:var(--t96);}
+.s96{stroke:var(--t96);}
+.f97{fill:var(--t97);}
+.s97{stroke:var(--t97);}
+.f98{fill:var(--t98);}
+.s98{stroke:var(--t98);}
+.f99{fill:var(--t99);}
+.s99{stroke:var(--t99);}
+.f100{fill:var(--t100);}
+.s100{stroke:var(--t100);}
+.f101{fill:var(--t101);}
+.s101{stroke:var(--t101);}
+.f102{fill:var(--t102);}
+.s102{stroke:var(--t102);}
+.f103{fill:var(--t103);}
+.s103{stroke:var(--t103);}
+.f104{fill:var(--t104);}
+.s104{stroke:var(--t104);}
+.f105{fill:var(--t105);}
+.s105{stroke:var(--t105);}
+.f106{fill:var(--t106);}
+.s106{stroke:var(--t106);}
+.f107{fill:var(--t107);}
+.s107{stroke:var(--t107);}
+.f108{fill:var(--t108);}
+.s108{stroke:var(--t108);}
+.f109{fill:var(--t109);}
+.s109{stroke:var(--t109);}
+.f110{fill:var(--t110);}
+.s110{stroke:var(--t110);}
+.f111{fill:var(--t111);}
+.s111{stroke:var(--t111);}
+.f112{fill:var(--t112);}
+.s112{stroke:var(--t112);}
+.f113{fill:var(--t113);}
+.s113{stroke:var(--t113);}
+.f114{fill:var(--t114);}
+.s114{stroke:var(--t114);}
+.f115{fill:var(--t115);}
+.s115{stroke:var(--t115);}
+.f116{fill:var(--t116);}
+.s116{stroke:var(--t116);}
+.f117{fill:var(--t117);}
+.s117{stroke:var(--t117);}
+.f118{fill:var(--t118);}
+.s118{stroke:var(--t118);}
+.f119{fill:var(--t119);}
+.s119{stroke:var(--t119);}
+.f120{fill:var(--t120);}
+.s120{stroke:var(--t120);}
+.f121{fill:var(--t121);}
+.s121{stroke:var(--t121);}
+.f122{fill:var(--t122);}
+.s122{stroke:var(--t122);}
+.f123{fill:var(--t123);}
+.s123{stroke:var(--t123);}
+.f124{fill:var(--t124);}
+.s124{stroke:var(--t124);}
+.f125{fill:var(--t125);}
+.f126{fill:var(--t126);}
+.f127{fill:var(--t127);}
+.f128{fill:var(--t128);}
+.f129{fill:var(--t129);}
+.f130{fill:var(--t130);}
+.f131{fill:var(--t131);}
+.s131{stroke:var(--t131);}
+.f132{fill:var(--t132);}
+.s132{stroke:var(--t132);}
+.f133{fill:var(--t133);}
+.s133{stroke:var(--t133);}
+.f134{fill:var(--t134);}
+.s134{stroke:var(--t134);}
+.f135{fill:var(--t135);}
+.s135{stroke:var(--t135);}
+.f136{fill:var(--t136);}
+.s136{stroke:var(--t136);}
+.f137{fill:var(--t137);}
+.s137{stroke:var(--t137);}
+.f138{fill:var(--t138);}
+.s138{stroke:var(--t138);}
+.f139{fill:var(--t139);}
+.s139{stroke:var(--t139);}
+.f140{fill:var(--t140);}
+.s140{stroke:var(--t140);}
+.f141{fill:var(--t141);}
+.s141{stroke:var(--t141);}
+.f142{fill:var(--t142);}
+.s142{stroke:var(--t142);}
+.f143{fill:var(--t143);}
+.s143{stroke:var(--t143);}
+.f144{fill:var(--t144);}
+.s144{stroke:var(--t144);}
+.f145{fill:var(--t145);}
+.s145{stroke:var(--t145);}
+.f146{fill:var(--t146);}
+.f147{fill:var(--t147);}
+.f148{fill:var(--t148);}
+.f149{fill:var(--t149);}
+.f150{fill:var(--t150);}
+.f151{fill:var(--t151);}
+.f152{fill:var(--t152);}
+.f153{fill:var(--t153);}
+.f154{fill:var(--t154);}
+.f155{fill:var(--t155);}
+.f156{fill:var(--t156);}
+.f157{fill:var(--t157);}
+.f158{fill:var(--t158);}
+.f159{fill:var(--t159);}
+.f160{fill:var(--t160);}
+.f161{fill:var(--t161);}
+.f162{fill:var(--t162);}
+.f163{fill:var(--t163);}
+.f164{fill:var(--t164);}
+.s164{stroke:var(--t164);}
+.f165{fill:var(--t165);}
+.s165{stroke:var(--t165);}
+.f166{fill:var(--t166);}
+.s166{stroke:var(--t166);}
+.f167{fill:var(--t167);}
+.s167{stroke:var(--t167);}
+.f168{fill:var(--t168);}
+.s168{stroke:var(--t168);}
+.f169{fill:var(--t169);}
+.s169{stroke:var(--t169);}
+.f170{fill:var(--t170);}
+.s170{stroke:var(--t170);}
+.f171{fill:var(--t171);}
+.s171{stroke:var(--t171);}
+.f172{fill:var(--t172);}
+.s172{stroke:var(--t172);}
+.f173{fill:var(--t173);}
+.s173{stroke:var(--t173);}
+.f174{fill:var(--t174);}
+.s174{stroke:var(--t174);}
+.f175{fill:var(--t175);}
+.s175{stroke:var(--t175);}
+.f176{fill:var(--t176);}
+.s176{stroke:var(--t176);}
+.f177{fill:var(--t177);}
+.s177{stroke:var(--t177);}
+.f178{fill:var(--t178);}
+.s178{stroke:var(--t178);}
+.f179{fill:var(--t179);}
+.s179{stroke:var(--t179);}
+.f180{fill:var(--t180);}
+.s180{stroke:var(--t180);}
+.f181{fill:var(--t181);}
+.s181{stroke:var(--t181);}
+.f182{fill:var(--t182);}
+.s182{stroke:var(--t182);}
+.f183{fill:var(--t183);}
+.s183{stroke:var(--t183);}
+.f184{fill:var(--t184);}
+.s184{stroke:var(--t184);}
+.f185{fill:var(--t185);}
+.s185{stroke:var(--t185);}
+.f186{fill:var(--t186);}
+.s186{stroke:var(--t186);}
+.f187{fill:var(--t187);}
+.s187{stroke:var(--t187);}
+.f188{fill:var(--t188);}
+.s188{stroke:var(--t188);}
+.f189{fill:var(--t189);}
+.s189{stroke:var(--t189);}
+.f190{fill:var(--t190);}
+.s190{stroke:var(--t190);}
+.f191{fill:var(--t191);}
+.s191{stroke:var(--t191);}
+.f192{fill:var(--t192);}
+.s192{stroke:var(--t192);}
+.f193{fill:var(--t193);}
+.s193{stroke:var(--t193);}
+.f194{fill:var(--t194);}
+.s194{stroke:var(--t194);}
+.f195{fill:var(--t195);}
+.s195{stroke:var(--t195);}
+.f196{fill:var(--t196);}
+.f197{fill:var(--t197);}
+.f198{fill:var(--t198);}
+.f199{fill:var(--t199);}
+.f200{fill:var(--t200);}
+.f201{fill:var(--t201);}
+.f202{fill:var(--t202);}
+.f203{fill:var(--t203);}
+.f204{fill:var(--t204);}
+.f205{fill:var(--t205);}
+.f206{fill:var(--t206);}
+.f207{fill:var(--t207);}
+.f208{fill:var(--t208);}
+.f209{fill:var(--t209);}
+.f210{fill:var(--t210);}
+.f211{fill:var(--t211);}
+.f212{fill:var(--t212);}
+.f213{fill:var(--t213);}
+.f214{fill:var(--t214);}
+.f215{fill:var(--t215);}
+.f216{fill:var(--t216);}
+.f217{fill:var(--t217);}
+.f218{fill:var(--t218);}
+.f219{fill:var(--t219);}
+.f220{fill:var(--t220);}
+.f221{fill:var(--t221);}
+.f222{fill:var(--t222);}
+.f223{fill:var(--t223);}
+.f224{fill:var(--t224);}
+.f225{fill:var(--t225);}
+.f226{fill:var(--t226);}
+.f227{fill:var(--t227);}
+.f228{fill:var(--t228);}
+.f229{fill:var(--t229);}
+.f230{fill:var(--t230);}
+.f231{fill:var(--t231);}
+.f232{fill:var(--t232);}
+.f233{fill:var(--t233);}
+.f234{fill:var(--t234);}
+.f235{fill:var(--t235);}
+.f236{fill:var(--t236);}
+.f237{fill:var(--t237);}
+.f238{fill:var(--t238);}
+.f239{fill:var(--t239);}
+.f240{fill:var(--t240);}
+.f241{fill:var(--t241);}
+.f242{fill:var(--t242);}
+.f243{fill:var(--t243);}
+.f244{fill:var(--t244);}
+.f245{fill:var(--t245);}
+.f246{fill:var(--t246);}
+.f247{fill:var(--t247);}
+.f248{fill:var(--t248);}
+.f249{fill:var(--t249);}
+.f250{fill:var(--t250);}
+.f251{fill:var(--t251);}
+.f252{fill:var(--t252);}
+.f253{fill:var(--t253);}
+.f254{fill:var(--t254);}
+.f255{fill:var(--t255);}
+.f256{fill:var(--t256);}
+.f257{fill:var(--t257);}
+.f258{fill:var(--t258);}
+.f259{fill:var(--t259);}
+.f260{fill:var(--t260);}
+.f261{fill:var(--t261);}
+.f262{fill:var(--t262);}
+.f263{fill:var(--t263);}
+.f264{fill:var(--t264);}
+.f265{fill:var(--t265);}
+.f266{fill:var(--t266);}
+.f267{fill:var(--t267);}
+.f268{fill:var(--t268);}
+.f269{fill:var(--t269);}
+.f270{fill:var(--t270);}
+.f271{fill:var(--t271);}
+.f272{fill:var(--t272);}
+.f273{fill:var(--t273);}
+.f274{fill:var(--t274);}
+.f275{fill:var(--t275);}
+.f276{fill:var(--t276);}
+.f277{fill:var(--t277);}
+.f278{fill:var(--t278);}
+.f279{fill:var(--t279);}
+.f280{fill:var(--t280);}
+.f281{fill:var(--t281);}
+.f282{fill:var(--t282);}
+.f283{fill:var(--t283);}
+.f284{fill:var(--t284);}
+.f285{fill:var(--t285);}
+.f286{fill:var(--t286);}
+.f287{fill:var(--t287);}
+.f288{fill:var(--t288);}
+.f289{fill:var(--t289);}
+.f290{fill:var(--t290);}
+.f291{fill:var(--t291);}
+.f292{fill:var(--t292);}
+.f293{fill:var(--t293);}
+.f294{fill:var(--t294);}
+.f295{fill:var(--t295);}
+.f296{fill:var(--t296);}
+.f297{fill:var(--t297);}
+.f298{fill:var(--t298);}
+.f299{fill:var(--t299);}
+.f300{fill:var(--t300);}
+.f301{fill:var(--t301);}
+.f302{fill:var(--t302);}
+.f303{fill:var(--t303);}
+.f304{fill:var(--t304);}
+.f305{fill:var(--t305);}
+.f306{fill:var(--t306);}
+.f307{fill:var(--t307);}
+.f308{fill:var(--t308);}
+.f309{fill:var(--t309);}
+.f310{fill:var(--t310);}
+.f311{fill:var(--t311);}
+.f312{fill:var(--t312);}
+#sun_travel{opacity:1;transform:translate(0px, 0px) translate(1013px, 209px) scale(1) translate(-1013px, -209px);transition:opacity 1.2s ease,transform var(--t-sky);}
+html[data-time="day"] #sun_travel{opacity:1;transform:translate(3.2px, -59.5px) translate(1013px, 209px) scale(0.484) translate(-1013px, -209px);}
+html[data-time="dusk"] #sun_travel{opacity:0;transform:translate(804px, 280px) translate(1013px, 209px) scale(0.9) translate(-1013px, -209px);transition:transform var(--t-sky),opacity 0.9s ease var(--dur-sky);}
+html[data-time="night"] #sun_travel{opacity:0;transform:translate(804px, 280px) translate(1013px, 209px) scale(0.9) translate(-1013px, -209px);transition:transform var(--t-sky),opacity 0.9s ease var(--dur-sky);}
+#sun_ring{opacity:1;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #sun_ring{opacity:0;}
+html[data-time="dusk"] #sun_ring{opacity:0;}
+html[data-time="night"] #sun_ring{opacity:0;}
+#birds{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #birds{opacity:1;}
+html[data-time="dusk"] #birds{opacity:0;}
+html[data-time="night"] #birds{opacity:0;}
+#birds_under{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #birds_under{opacity:1;}
+html[data-time="dusk"] #birds_under{opacity:0;}
+html[data-time="night"] #birds_under{opacity:0;}
+#day_halo{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #day_halo{opacity:1;}
+html[data-time="dusk"] #day_halo{opacity:0;}
+html[data-time="night"] #day_halo{opacity:0;}
+#sky_warm_rect{opacity:1;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #sky_warm_rect{opacity:0;}
+html[data-time="dusk"] #sky_warm_rect{opacity:0;}
+html[data-time="night"] #sky_warm_rect{opacity:0;}
+#stars{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #stars{opacity:0;}
+html[data-time="dusk"] #stars{opacity:0;}
+html[data-time="night"] #stars{opacity:1;}
+#moon{opacity:0;transform:translate(0px, 62px);transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #moon{opacity:0;transform:translate(0px, 62px);}
+html[data-time="dusk"] #moon{opacity:0;transform:translate(0px, 62px);}
+html[data-time="night"] #moon{opacity:1;transform:translate(0px, 0px);}
+#night_fx{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #night_fx{opacity:0;}
+html[data-time="dusk"] #night_fx{opacity:0;}
+html[data-time="night"] #night_fx{opacity:1;}
+#dusk_rim{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #dusk_rim{opacity:0;}
+html[data-time="dusk"] #dusk_rim{opacity:1;}
+html[data-time="night"] #dusk_rim{opacity:0;}
+#dusk_horizon{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #dusk_horizon{opacity:0;}
+html[data-time="dusk"] #dusk_horizon{opacity:1;}
+html[data-time="night"] #dusk_horizon{opacity:0;}
+#dusk_front{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #dusk_front{opacity:0;}
+html[data-time="dusk"] #dusk_front{opacity:1;}
+html[data-time="night"] #dusk_front{opacity:0;}
+#dusk_sky_lr{opacity:0;transition:opacity var(--t-sky),transform var(--t-sky);}
+html[data-time="day"] #dusk_sky_lr{opacity:0;}
+html[data-time="dusk"] #dusk_sky_lr{opacity:1;}
+html[data-time="night"] #dusk_sky_lr{opacity:0;}
+@media (prefers-reduced-motion: reduce){html,#sun_travel,#sun_ring,#birds,#birds_under,#day_halo,#sky_warm_rect,#stars,#moon,#night_fx,#dusk_rim,#dusk_horizon,#dusk_front,#dusk_sky_lr{transition:none!important;}}
