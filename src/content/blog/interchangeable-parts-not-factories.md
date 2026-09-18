@@ -21,7 +21,7 @@ If you have followed leaders in the ai adoption space like the father of the ral
 
 This is not to say these projects are failures or even wastes of time. In fact they are huge successes for the community as they have shown us the limitations of ai without us having to spend [12k a month on subscription plans.](https://yegge.ai/essays/seats-and-sunsets/) Something that is top of mind for me when building is what Geoffrey said: "Agents are drunk." If you take this approach for your ai development you will have much greater successes. And the proof is in the pudding, let a loop run without extremely fixed constraints or a down-to-the-last-letter-specific goal then you will wake up to, well for a lack of better words: shit. 
 
-![image.png](blob:https:/app.pagescms.org/4d6a2167-7c7c-48f1-a252-4a4b661a9e99)
+![image.png](/images/image-8.png)
 
 ###   
 Software factories are bad generalists
